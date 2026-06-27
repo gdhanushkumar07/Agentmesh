@@ -3,73 +3,73 @@
 
 import React from "react";
 import { 
-  Headphones, CreditCard, Scale, Settings, Cpu, Sparkles, Globe, Crown 
+  Headphones, CreditCard, Scale, Settings, Cpu, Globe, Crown, User 
 } from "lucide-react";
 
 export default function WhyAgentMesh() {
   const agents = [
     {
-      id: "A-01",
+      id: "V-01",
       icon: Headphones,
-      name: "Support Agent",
-      role: "Triage & Routing",
-      desc: "Autonomously accepts issues, analyzes intent against support documents, and forwards requests with full context.",
+      name: "Procurement Agent",
+      role: "Workflow Triage",
+      desc: "Autonomously receives issues (e.g., delays), checks SLA directories, and forwards requests with full context via Aicoo.",
       style: "bg-cream text-charcoal border-charcoal/10"
     },
     {
-      id: "A-02",
+      id: "V-02",
       icon: CreditCard,
-      name: "Billing Agent",
-      role: "Financial Verification",
-      desc: "Checks Stripe logs, resolves credit discrepancies, and generates scoped folders to safely coordinate with partners.",
+      name: "Finance Agent",
+      role: "Accounting & Credits",
+      desc: "Audits Stripe transactions, approves credit payouts, and posts billing ledger summaries to persistent workspaces.",
       style: "bg-yellow text-charcoal border-yellow-dark"
     },
     {
-      id: "A-03",
+      id: "V-03",
       icon: Scale,
-      name: "Legal Agent",
-      role: "Compliance & Risk",
-      desc: "Reviews cancellations against policy agreements, monitors GDPR constraints, and aggregates briefs for CEO review.",
+      name: "Insurance Agent",
+      role: "Liability Audit",
+      desc: "Validates damage claims against contract policy logs, reviews gdpr flags, and compiles escalated claims.",
       style: "bg-charcoal text-cream border-white/5"
     },
     {
-      id: "A-04",
-      icon: Settings,
-      name: "Operations Agent",
-      role: "Script Orchestration",
-      desc: "Deploys container replicas, changes cloud routing templates, and scales server capacity during alerts.",
+      id: "V-04",
+      icon: Cpu,
+      name: "Warehouse Agent",
+      role: "Inventory Scan",
+      desc: "Scans stock forecasting levels and flags broken cargo incidents directly to Aicoo memory folders.",
       style: "bg-cream text-charcoal border-charcoal/10"
     },
     {
-      id: "A-05",
-      icon: Cpu,
-      name: "DevOps Agent",
-      role: "System Diagnostics",
-      desc: "Monitors response telemetry and logs latency spikes to trigger self-healing deployment scripts in Operations.",
+      id: "V-05",
+      icon: Settings,
+      name: "Shipping Agent",
+      role: "Logistics Sync",
+      desc: "Monitors transit delay signals and reroutes delivery paths using active routing tool integrations.",
       style: "bg-yellow text-charcoal border-yellow-dark"
     },
     {
-      id: "A-06",
-      icon: Sparkles,
-      name: "Marketing Agent",
-      role: "Outreach & Engagement",
-      desc: "Analyzes user activity to draft targeted newsletters and support follow-ups for customers at risk.",
+      id: "V-06",
+      icon: Globe,
+      name: "Supplier Agent",
+      role: "External Supplier",
+      desc: "Validates shipping weights and accesses folder-scoped share links safely across company borders.",
       style: "bg-cream text-charcoal border-charcoal/10"
     },
     {
-      id: "A-07",
-      icon: Globe,
-      name: "Partner Agent",
-      role: "External Sync",
-      desc: "Accesses temporary folder shares from third parties to match supplier invoices and close cargo discrepancies.",
-      style: "bg-charcoal text-cream border-white/5"
-    },
-    {
-      id: "A-08",
+      id: "V-07",
       icon: Crown,
       name: "CEO Agent",
-      role: "Global Executive",
+      role: "Corporate Executive",
       desc: "Consolidates all department briefing matrix cards into a priority Eisenhower grid for immediate human review.",
+      style: "bg-charcoal text-cream border-white/5"
+    },
+    {
+      id: "V-08",
+      icon: User,
+      name: "Customer Agent",
+      role: "Customer Persona",
+      desc: "Initializes complaints and coordinates directly with support endpoints to receive real-time ETA briefings.",
       style: "bg-yellow text-charcoal border-yellow-dark"
     }
   ];
@@ -78,15 +78,15 @@ export default function WhyAgentMesh() {
     <section id="agents" className="py-20 bg-cream border-t border-charcoal/10 relative">
       <div className="max-w-7xl mx-auto px-6 space-y-12">
         {/* Header */}
-        <div className="space-y-3 max-w-xl">
+        <div className="space-y-3 max-w-2xl">
           <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
-            S-03 / The Topology
+            S-05 / Meet VendorFlow
           </span>
           <h2 className="font-syne text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
-            An Autonomous Department Grid
+            Meet VendorFlow
           </h2>
           <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
-            AgentMesh transforms your corporate hierarchy into a mesh network. Every core business department is staffed by an autonomous AI agent.
+            VendorFlow is a business workflow coordination platform built on AgentMesh. AgentMesh is the coordination engine; Aicoo is the communication infrastructure.
           </p>
         </div>
 

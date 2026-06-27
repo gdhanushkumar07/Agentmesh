@@ -4,13 +4,14 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Globe, ArrowRight, Layout, Menu, X, ShieldCheck } from "lucide-react";
-import ProblemSection from "../components/landing/ProblemSection";
+import FutureOfWork from "../components/landing/FutureOfWork";
+import RealProblem from "../components/landing/RealProblem";
+import WhyAicooExists from "../components/landing/WhyAicooExists";
 import WhyAgentMesh from "../components/landing/WhyAgentMesh";
-import WorkflowSection from "../components/landing/WorkflowSection";
-import WhyAicoo from "../components/landing/WhyAicoo";
-import TechStack from "../components/landing/TechStack";
+import DashboardPreview from "../components/landing/DashboardPreview";
+import AicooPowersEverything from "../components/landing/AicooPowersEverything";
 import ArchitectureSection from "../components/landing/ArchitectureSection";
-import DemoPreview from "../components/landing/DemoPreview";
+import TechStack from "../components/landing/TechStack";
 
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -27,11 +28,9 @@ export default function Home() {
   const navLinks = [
     { href: "#problem", label: "Problem" },
     { href: "#agents", label: "Agents" },
-    { href: "#workflow", label: "Pipeline" },
     { href: "#architecture", label: "Architecture" },
-    { href: "#aicoo", label: "Aicoo Layer" },
-    { href: "#technology", label: "Tech Stack" },
-    { href: "#demo", label: "Demo" }
+    { href: "#technology", label: "Technology" },
+    { href: "#demo-preview", label: "Demo" }
   ];
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -64,7 +63,7 @@ export default function Home() {
             <Globe className="w-5 h-5 animate-spin" style={{ animationDuration: '15s' }} />
           </div>
           <div className="flex flex-col">
-            <span className="font-syne text-sm font-bold uppercase tracking-wider text-charcoal leading-none">AgentMesh</span>
+            <span className="font-syne text-sm font-bold uppercase tracking-wider text-charcoal leading-none">VendorFlow</span>
             <span className="text-[9px] uppercase tracking-widest text-charcoal/50 font-bold mt-0.5">by Aicoo Protocol</span>
           </div>
         </Link>
@@ -119,29 +118,35 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <section className="flex-1 p-8 md:p-16 flex flex-col md:flex-row border-collapse items-center min-h-[85vh] grid-bg">
-        <div className="flex-1 max-w-xl space-y-6 md:pr-8 py-8">
+        <div className="flex-1 max-w-2xl space-y-6 md:pr-8 py-8">
           <div className="flex items-center gap-2">
             <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
-              S-01 / The Paradigm Shift
+              S-01 / B2B Coordination Platform
             </span>
           </div>
           
-          <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-charcoal leading-[0.95]">
-            AI-Driven <br />
-            <span className="text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block mt-2">Operations</span> <br />
-            Connected.
+          <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-charcoal leading-[1.1]">
+            The Coordination Layer <br />
+            <span className="text-yellow-dark bg-yellow/10 px-4 py-1 rounded-2xl border border-yellow/20 inline-block mt-2.5 text-2xl sm:text-3xl md:text-4xl">
+              For AI Organizations.
+            </span>
           </h1>
           
-          <p className="text-sm text-charcoal/70 font-medium leading-relaxed">
-            AgentMesh is the coordination layer for AI-powered organizations. Every department runs as an autonomous agent coordinating, negotiating, and sharing context through Aicoo's secure protocol.
-          </p>
+          <div className="text-sm text-charcoal/70 font-medium leading-relaxed space-y-2">
+            <p className="font-bold text-charcoal">
+              VendorFlow enables AI agents from different organizations to securely communicate, share context, route work, and resolve business workflows without manual coordination.
+            </p>
+            <p className="text-xs text-charcoal/60 font-semibold leading-relaxed">
+              Powered by AgentMesh and Aicoo.
+            </p>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <Link
               href="/network"
-              className="flex items-center justify-center gap-2 px-6 py-3.5 bg-charcoal hover:bg-charcoal/90 text-cream rounded-xl font-syne font-bold uppercase text-xs transition-all shadow-md group"
+              className="flex items-center justify-center gap-2 px-6 py-3.5 bg-charcoal hover:bg-charcoal/90 text-cream rounded-xl font-syne font-bold uppercase text-xs transition-all shadow-md group border border-charcoal"
             >
-              <span>Deploy Network OS</span>
+              <span>Deploy VendorFlow Node</span>
               <ArrowRight className="w-4 h-4 text-yellow transition-transform group-hover:translate-x-1" />
             </Link>
             <a
@@ -149,7 +154,7 @@ export default function Home() {
               onClick={(e) => handleScrollTo(e, "#problem")}
               className="flex items-center justify-center gap-2 px-6 py-3.5 bg-white border border-charcoal/10 hover:border-charcoal/30 text-charcoal rounded-xl font-syne font-bold uppercase text-xs transition-all shadow-sm"
             >
-              <span>Explore Product Story</span>
+              <span>Explore the Problem</span>
             </a>
           </div>
         </div>
@@ -165,20 +170,50 @@ export default function Home() {
               <Globe className="w-12 h-12 text-charcoal/10 animate-spin" style={{ animationDuration: '30s' }} />
             </div>
             <p className="text-[10px] text-charcoal/60 leading-relaxed font-semibold text-center">
-              Aicoo Protocol synchronizes Support, Billing, Legal, DevOps, and Operations Agent nodes securely.
+              Aicoo Protocol synchronizes Procurement, Finance, Insurance, Warehouse, Shipping, and Supplier Agent nodes.
             </p>
           </div>
         </div>
       </section>
 
       {/* STORYTELLING SECTIONS */}
-      <ProblemSection />
+      <FutureOfWork />
+      <RealProblem />
+      <WhyAicooExists />
       <WhyAgentMesh />
-      <WorkflowSection />
+      <DashboardPreview />
+      <AicooPowersEverything />
       <ArchitectureSection />
-      <WhyAicoo />
       <TechStack />
-      <DemoPreview />
+
+      {/* FINAL MESSAGE SECTION */}
+      <section className="py-20 bg-charcoal text-cream border-t border-white/5 grid-bg-dark relative">
+        <div className="max-w-4xl mx-auto px-6 text-center space-y-8">
+          <h2 className="font-syne text-2xl sm:text-3xl md:text-4xl font-extrabold uppercase tracking-tight text-cream leading-tight">
+            Without Aicoo, companies have AI agents. <br />
+            <span className="text-yellow">With Aicoo, companies have coordinated organizations.</span>
+          </h2>
+          <p className="text-xs text-white/60 font-semibold leading-relaxed max-w-xl mx-auto">
+            VendorFlow demonstrates one real-world application of that future. AgentMesh is the coordination engine, and Aicoo is the communication infrastructure.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+            <Link
+              href="/network"
+              className="flex items-center justify-center gap-2 px-8 py-4 bg-yellow hover:bg-yellow-dark text-charcoal rounded-xl font-syne font-bold uppercase text-xs transition-all shadow-md border border-yellow-dark"
+            >
+              <span>Launch VendorFlow Node</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/network"
+              className="flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-cream rounded-xl font-syne font-bold uppercase text-xs transition-all border border-white/10"
+            >
+              <span>Open Interactive Demo</span>
+            </Link>
+          </div>
+        </div>
+      </section>
 
       {/* FOOTER */}
       <footer className="bg-charcoal text-cream border-t border-white/5 py-12 px-6">
@@ -187,7 +222,7 @@ export default function Home() {
             <div className="bg-white/10 text-yellow p-1.5 rounded-lg border border-white/5">
               <Globe className="w-4 h-4" />
             </div>
-            <span className="font-syne text-xs uppercase font-bold tracking-wider text-cream">AgentMesh OS</span>
+            <span className="font-syne text-xs uppercase font-bold tracking-wider text-cream">VendorFlow OS</span>
           </div>
           <div className="flex items-center gap-1 text-[10px] text-white/40 font-bold uppercase tracking-wider">
             <ShieldCheck className="w-4 h-4 text-green-500" />

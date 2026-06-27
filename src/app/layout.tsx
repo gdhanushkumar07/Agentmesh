@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AgentMesh — The Agent Network OS for Business Operations",
-  description: "AgentMesh is the operating system for AI-powered companies, where every business function runs as an autonomous agent coordinating through Aicoo's nervous system.",
+  title: "VendorFlow — AI-Powered Cross-Company Workflow Coordination",
+  description: "VendorFlow enables AI agents from different organizations to securely communicate, share context, route work, and resolve business workflows without manual coordination. Powered by AgentMesh and Aicoo.",
   authors: [{ name: "Aicoo Hackathon Team" }],
   openGraph: {
-    title: "AgentMesh — Agent Network OS",
+    title: "VendorFlow — Cross-Company Workflow Coordination",
     description: "Autonomously coordinate, negotiate, and execute business workflows with Aicoo.",
     type: "website",
   }

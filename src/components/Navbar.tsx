@@ -54,7 +54,7 @@ export default function Navbar() {
             <Globe className="w-5 h-5 animate-spin" style={{ animationDuration: '15s' }} />
           </div>
           <div className="flex flex-col">
-            <span className="font-syne text-sm font-bold uppercase tracking-wider text-charcoal leading-none">AgentMesh</span>
+            <span className="font-syne text-sm font-bold uppercase tracking-wider text-charcoal leading-none">VendorFlow</span>
             <span className="text-[9px] uppercase tracking-widest text-charcoal/50 font-bold mt-0.5">by Aicoo Protocol</span>
           </div>
         </Link>
@@ -120,7 +120,7 @@ export default function Navbar() {
             {/* Form */}
             <form onSubmit={handleSaveKey} className="p-5 space-y-4">
               <p className="text-xs text-charcoal/70 leading-relaxed font-medium">
-                By default, AgentMesh runs in <strong>Mock Mode</strong> (perfect for immediate evaluation). Paste your Aicoo API key below to route actual messages, shares, and briefings to the Aicoo protocol.
+                By default, VendorFlow runs in <strong>Mock Mode</strong> (perfect for immediate evaluation). Paste your Aicoo API key below to route actual messages, shares, and briefings to the Aicoo protocol.
               </p>
               
               <div className="space-y-1.5">

@@ -86,31 +86,31 @@ async function request(method: 'GET' | 'POST' | 'DELETE', path: string, body?: a
     if (path === '/init') {
       mockResponse = { success: true, workspaceId: 'ws_abc123', status: 'initialized', created_at: new Date().toISOString() };
     } else if (path === '/context/status') {
-      mockResponse = { totalItems: 42, folders: ['Support', 'Billing', 'Legal', 'DevOps', 'Operations'], lastSync: new Date().toISOString() };
+      mockResponse = { totalItems: 42, folders: ['Procurement', 'Finance', 'Insurance', 'Warehouse', 'Shipping', 'Supplier'], lastSync: new Date().toISOString() };
     } else if (path === '/accumulate') {
       mockResponse = { status: 'accumulated', count: body?.files?.length || 1, details: 'Context stored in Aicoo memory store.' };
     } else if (path === '/chat') {
-      mockResponse = { response: `Decided to route query. Checked billing database and escalated to Legal for confirmation.` };
+      mockResponse = { response: `Analyzed supplier delay. Checked billing database and escalated to Insurance Agent for claim approval.` };
     } else if (path === '/briefing') {
       mockResponse = { 
-        summary: "The customer requested a refund for an annual billing plan. Our Billing Agent identified that the payment was processed 14 days ago. Legal Agent has approved the refund, but requires human sign-off due to compliance policies.",
-        actionItems: ["Approve refund in Stripe", "Notify Legal department of resolution", "Draft follow-up email to customer"],
-        riskScore: "Medium"
+        summary: "Supplier shipment delayed due to carrier freight limits. Finance Agent has validated the invoice adjustment and Insurance Agent approved the transit risk claim. Human signature required to finalize shipment rerouting.",
+        actionItems: ["Approve air freight carrier surcharge", "Sign off on transit insurance claim", "Notify Supplier of delivery ETA updates"],
+        riskScore: "High"
       };
     } else if (path === '/briefing/strategies') {
       mockResponse = {
         strategies: [
-          { priority: 1, title: "Resolve billing dispute for Acme Corp", description: "Escalated by Billing Agent. Risk of churn is high." },
-          { priority: 2, title: "Update compliance guidelines in Legal folder", description: "Operations Agent flagged outdated documents." },
-          { priority: 3, title: "DevOps service degradation inspection", description: "DevOps Agent reports repeated latency spikes." }
+          { priority: 1, title: "Resolve shipping delay", description: "Escalated by Shipping Agent. Cargo held at customs." },
+          { priority: 2, title: "Update transit insurance claim", description: "Insurance Agent flagged carrier surcharge mismatch." },
+          { priority: 3, title: "Scan warehouse inventory forecast", description: "Warehouse Agent reports capacity limits." }
         ]
       };
     } else if (path === '/briefing/matrix') {
       mockResponse = {
-        q1: [{ id: "t1", title: "Urgent Refund Approval", desc: "Acme Corp contract termination" }],
-        q2: [{ id: "t2", title: "Review Partner Agreement", desc: "Orello cross-company policy review" }],
-        q3: [{ id: "t3", title: "Slack Channel Webhook Fix", desc: "DevOps minor notification delay" }],
-        q4: [{ id: "t4", title: "Archive Old Operations Logs", desc: "Routine cleanup tasks" }]
+        q1: [{ id: "t1", title: "Approve Cargo Reroute", desc: "Air freight carrier surcharge clearance required" }],
+        q2: [{ id: "t2", title: "Sign transit claim forms", desc: "Insurance Agent claim approval finalized" }],
+        q3: [{ id: "t3", title: "Supplier Capacity Check", desc: "Scan Q3 capacity trends report" }],
+        q4: [{ id: "t4", title: "Archive shipping receipts", desc: "Standard warehousing cleanup logs" }]
       };
     } else if (path === '/share/create') {
       const id = 'link_' + Math.random().toString(36).substring(2, 9);
@@ -136,13 +136,12 @@ async function request(method: 'GET' | 'POST' | 'DELETE', path: string, body?: a
       mockResponse = {
         status: "success",
         timestamp: new Date().toISOString(),
-        customersScanned: 150,
-        atRiskCustomers: 2,
+        customersScanned: 15,
+        atRiskCustomers: 1,
         actionsCreated: [
-          { customer: "Stripe", reason: "Usage drop of 40%", draft: "Subject: Usage Drop Support Request" },
-          { customer: "Vercel", reason: "API latency spikes", draft: "Subject: API Latency Support Escalation" }
+          { customer: "Carrier Express", reason: "Surcharge mismatch", draft: "Subject: Transit Billing Discrepancy Correction" }
         ],
-        timeSavedHours: 4.5
+        timeSavedHours: 6.0
       };
     } else if (path === '/heartbeat/runs') {
       mockResponse = [

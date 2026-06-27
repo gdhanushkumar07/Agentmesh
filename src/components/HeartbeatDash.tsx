@@ -36,8 +36,8 @@ export default function HeartbeatDash() {
         ...r,
         customersScanned: 150 - idx * 10,
         actionsCreated: [
-          { customer: "Acme Inc", reason: "API key nearing expiration", draft: "Subject: Urgent - Refresh Aicoo API Credentials" },
-          { customer: "PartnerCo", reason: "Shared link inactive", draft: "Subject: Request to Re-verify Shared Workspace" }
+          { customer: "Carrier Express", reason: "Surcharge rate discrepancy", draft: "Subject: Transit Billing Discrepancy Correction" },
+          { customer: "Sileon Logistics", reason: "Shared link inactive", draft: "Subject: Request to Re-verify Shared Workspace" }
         ].slice(0, r.actions)
       }));
       setRuns(detailedRuns);

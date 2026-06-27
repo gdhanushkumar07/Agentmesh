@@ -43,9 +43,9 @@ export default function NetworkPage() {
               <Info className="w-4 h-4" />
             </div>
             <div className="space-y-1">
-              <h4 className="text-xs font-syne uppercase font-bold text-charcoal">How to test the AgentMesh demo:</h4>
+              <h4 className="text-xs font-syne uppercase font-bold text-charcoal">How to test the VendorFlow demo:</h4>
               <p className="text-xs text-charcoal/60 leading-relaxed font-medium">
-                1. Select a Scenario (e.g. <strong>Refund Dispute</strong> or <strong>Cross-Company</strong>). <br />
+                1. Select a Scenario (e.g. <strong>Delayed Shipment</strong> or <strong>Damaged Goods Claim</strong>). <br />
                 2. Click <strong>Play Run</strong> to execute automatically or <strong>Step</strong> to run manually. <br />
                 3. Observe API logs showing endpoints like <code className="bg-charcoal/5 px-1 py-0.5 rounded font-mono text-[10px]">/accumulate</code> and <code className="bg-charcoal/5 px-1 py-0.5 rounded font-mono text-[10px]">/share/create</code> executing in the console on the right. <br />
                 4. When an escalation triggers, navigate to the <Link href="/escalation" className="text-yellow-dark underline font-bold inline-flex items-center gap-0.5">Human Portal <ArrowUpRight className="w-3 h-3" /></Link> to see the generated briefing.

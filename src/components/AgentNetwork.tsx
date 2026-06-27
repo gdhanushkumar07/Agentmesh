@@ -21,13 +21,13 @@ interface Node {
 
 const NODES: Record<string, Node> = {
   customer: { id: "customer", label: "Customer", x: 60, y: 220, icon: User, color: "bg-charcoal text-cream border-muted-border", type: 'external' },
-  support: { id: "support", label: "Support Agent", x: 220, y: 220, icon: Headphones, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
-  billing: { id: "billing", label: "Billing Agent", x: 400, y: 220, icon: CreditCard, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
-  legal: { id: "legal", label: "Legal Agent", x: 580, y: 220, icon: Scale, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
+  support: { id: "support", label: "Procurement AI", x: 220, y: 220, icon: Headphones, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
+  billing: { id: "billing", label: "Finance AI", x: 400, y: 220, icon: CreditCard, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
+  legal: { id: "legal", label: "Insurance AI", x: 580, y: 220, icon: Scale, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
   ceo: { id: "ceo", label: "CEO / Briefing", x: 400, y: 80, icon: Crown, color: "bg-yellow text-charcoal border-yellow-dark", type: 'internal' },
-  devops: { id: "devops", label: "DevOps Agent", x: 220, y: 360, icon: Cpu, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
-  operations: { id: "operations", label: "Operations Agent", x: 400, y: 360, icon: Settings, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
-  partner: { id: "partner", label: "Partner Agent", x: 740, y: 220, icon: Globe, color: "bg-yellow text-charcoal border-yellow-dark", type: 'partner' },
+  devops: { id: "devops", label: "Warehouse AI", x: 220, y: 360, icon: Cpu, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
+  operations: { id: "operations", label: "Shipping AI", x: 400, y: 360, icon: Settings, color: "bg-charcoal text-cream border-muted-border", type: 'internal' },
+  partner: { id: "partner", label: "Supplier AI", x: 740, y: 220, icon: Globe, color: "bg-yellow text-charcoal border-yellow-dark", type: 'partner' },
 };
 
 const EDGES = [
@@ -247,7 +247,7 @@ export default function AgentNetwork({ onStepTriggered, onScenarioReset }: Agent
                   : "bg-transparent text-charcoal/70 border-charcoal/10 hover:border-charcoal/30"
               }`}
             >
-              {sc.id === 'refund' ? 'Refund Dispute' : sc.id === 'cross-company' ? 'Cross-Company' : 'DevOps Incident'}
+              {sc.name.split(":")[1]?.trim() || sc.name}
             </button>
           ))}
         </div>

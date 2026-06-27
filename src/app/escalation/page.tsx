@@ -20,22 +20,22 @@ export default function EscalationPage() {
   const [items, setItems] = useState<EscalationItem[]>([
     {
       id: "esc_01",
-      customer: "Acme Corp",
-      issue: "Invoice INV-8822 Refund Dispute",
-      agent: "Billing Agent",
+      customer: "Carrier Express",
+      issue: "Invoice Dispute INV-8822",
+      agent: "Finance Agent",
       date: "Today, 14:32",
       status: "pending",
       checklist: [
         { id: "c1", text: "Verify payment clearance in Stripe dashboard", done: true },
-        { id: "c2", text: "Confirm Billing Agent's terms exception", done: false },
-        { id: "c3", text: "Approve and authorize manual credit refund", done: false }
+        { id: "c2", text: "Confirm Finance Agent's rate adjustment exception", done: false },
+        { id: "c3", text: "Approve and authorize manual credit adjustments", done: false }
       ]
     },
     {
       id: "esc_02",
-      customer: "Sileon Shipping",
-      issue: "Compliance Shipping Fee Correction",
-      agent: "Legal Agent",
+      customer: "Sileon Logistics",
+      issue: "Customs Surcharge Correction",
+      agent: "Insurance Agent",
       date: "Today, 11:15",
       status: "pending",
       checklist: [
