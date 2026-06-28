@@ -1,21 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Syne:wght@700;800&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #f4f4f0;
-  --color-cream-dark: #eaeae6;
-  --color-charcoal: #121212;
-  --color-charcoal-light: #1a1a1a;
-  --color-charcoal-muted: #2c2c2c;
+  --color-cream: #f6f6f2;
+  --color-cream-dark: #ebebe5;
+  --color-charcoal: #0e0f12;
+  --color-charcoal-light: #18191e;
+  --color-charcoal-muted: #282a30;
   --color-yellow: #f2c94c;
-  --color-yellow-dark: #e0b638;
-  --font-sans: "Outfit", sans-serif;
-  --font-syne: "Syne", sans-serif;
+  --color-yellow-dark: #d4a72c;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-syne: "Inter", sans-serif; /* Maintaining fallback compatibility */
 }
 
 :root {
-  --background: #f4f4f0;
-  --foreground: #121212;
+  --background: #f6f6f2;
+  --foreground: #0e0f12;
 }
 
 body {
@@ -24,21 +25,31 @@ body {
   font-family: var(--font-sans);
   min-height: 100vh;
   overflow-x: hidden;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Orello grid background patterns */
+/* Blueprint Grid & Enterprise Backgrounds */
 .grid-bg {
   background-image: 
-    linear-gradient(to right, rgba(18, 18, 18, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(18, 18, 18, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(to right, rgba(14, 15, 18, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 15, 18, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 .grid-bg-dark {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.radial-glow-hero {
+  background: radial-gradient(circle at 65% 40%, rgba(242, 201, 76, 0.15) 0%, rgba(246, 246, 242, 0) 65%);
+}
+
+.radial-glow-dark {
+  background: radial-gradient(circle at 50% 30%, rgba(242, 201, 76, 0.12) 0%, rgba(14, 15, 18, 0) 70%);
 }
 
 /* Custom scrollbars */
@@ -52,50 +63,78 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(18, 18, 18, 0.1);
-  border-radius: 3px;
+  background: rgba(14, 15, 18, 0.15);
+  border-radius: 9999px;
 }
 
 .dark ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
 }
 
-/* Micro-animations */
+/* Animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+
+.animate-float {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 5px rgba(242, 201, 76, 0.2);
-    transform: scale(1);
+    box-shadow: 0 0 15px rgba(242, 201, 76, 0.2), 0 0 2px rgba(242, 201, 76, 0.4);
   }
   50% {
-    box-shadow: 0 0 20px rgba(242, 201, 76, 0.6);
-    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(242, 201, 76, 0.5), 0 0 8px rgba(242, 201, 76, 0.8);
   }
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 2s infinite ease-in-out;
+  animation: pulse-glow 3s infinite ease-in-out;
 }
 
 @keyframes dash {
   to {
-    stroke-dashoffset: -20;
+    stroke-dashoffset: -32;
   }
 }
 
 .animate-dash {
-  stroke-dasharray: 5;
-  animation: dash 1s linear infinite;
+  stroke-dasharray: 6 6;
+  animation: dash 1.5s linear infinite;
 }
 
-/* Glassmorphism utility */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-scan {
+  animation: scan-line 8s linear infinite;
+}
+
+/* Glassmorphism */
 .glass {
-  background: rgba(244, 244, 240, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(18, 18, 18, 0.05);
+  background: rgba(246, 246, 242, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(14, 15, 18, 0.08);
 }
 
 .glass-dark {
-  background: rgba(18, 18, 18, 0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(14, 15, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.btn-enterprise {
+  border-radius: 16px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-enterprise:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -6px rgba(14, 15, 18, 0.15);
 }

@@ -105,7 +105,7 @@ export default function Marketplace({ onBuyProduct, onBack }: MarketplaceProps) 
               Order Submitted Successfully
             </h3>
             <p className="text-xs text-charcoal/70 leading-relaxed font-semibold">
-              VendorFlow is coordinating your order across B2B warehouse lanes and logistics networks.
+              OpenRelay is coordinating your order across B2B warehouse lanes and logistics networks.
             </p>
             <p className="text-[11px] font-syne uppercase tracking-wider text-yellow-dark font-extrabold animate-pulse pt-4">
               Opening Aicoo Coordination Control Dashboard...

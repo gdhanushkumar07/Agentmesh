@@ -134,7 +134,7 @@ export default function OrgSelector({ onSelect }: OrgSelectorProps) {
           Select Your Organization Perspective
         </h2>
         <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
-          VendorFlow enables independent AI Agents to coordinate workflows across business boundaries. Choose an organization below to experience its authorized dashboard and data scope.
+          OpenRelay enables independent AI Agents to coordinate workflows across business boundaries. Choose an organization below to experience its authorized dashboard and data scope.
         </p>
       </div>
 

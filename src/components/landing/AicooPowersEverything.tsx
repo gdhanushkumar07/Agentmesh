@@ -57,44 +57,44 @@ export default function AicooPowersEverything() {
   ];
 
   return (
-    <section id="aicoo-capabilities" className="py-20 bg-cream border-t border-charcoal/10 relative">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
+    <section id="aicoo-capabilities" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         {/* Header */}
-        <div className="space-y-3 max-w-xl">
-          <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
+        <div className="space-y-4 max-w-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow/15 border border-yellow/30 text-yellow-dark text-xs font-bold uppercase tracking-wider">
             S-07 / How Aicoo Powers Everything
-          </span>
-          <h2 className="font-syne text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
-            Built on Aicoo Protocol
+          </div>
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
+            Built on Aicoo <span className="font-serif italic font-normal text-yellow-dark lowercase capitalize">Protocol</span>
           </h2>
-          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
-            Every feature of VendorFlow is powered directly by a corresponding Aicoo API endpoint.
+          <p className="text-sm sm:text-base text-charcoal/70 leading-relaxed font-normal">
+            Every feature of OpenRelay is powered directly by a corresponding Aicoo API endpoint.
           </p>
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {capabilities.map((cap, idx) => {
             const Icon = cap.icon;
             return (
               <div 
                 key={idx}
-                className="bg-cream border border-charcoal/10 rounded-2xl p-6 flex flex-col justify-between min-h-[220px] transition-all hover:border-charcoal/30 group"
+                className="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between min-h-[260px] transition-all duration-300 hover:border-charcoal/30 hover:-translate-y-1.5 hover:shadow-xl group shadow-sm"
               >
-                <div className="flex justify-between items-start">
-                  <div className="bg-charcoal/5 p-2 rounded-lg border border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all">
-                    <Icon className="w-4 h-4" />
+                <div className="flex justify-between items-start gap-2">
+                  <div className="bg-charcoal/5 p-3 rounded-xl border border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all duration-300">
+                    <Icon className="w-5 h-5" />
                   </div>
-                  <code className="text-[9px] bg-charcoal/5 px-2 py-0.5 rounded font-mono font-bold text-yellow-dark">
+                  <code className="text-[10px] bg-charcoal/5 px-2.5 py-1 rounded-full font-mono font-bold text-yellow-dark border border-charcoal/5">
                     {cap.endpoint}
                   </code>
                 </div>
 
-                <div className="space-y-1.5 mt-8">
-                  <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">
+                <div className="space-y-2 mt-8">
+                  <h3 className="font-sans text-sm uppercase font-extrabold text-charcoal tracking-wide">
                     {cap.title}
                   </h3>
-                  <p className="text-[10px] text-charcoal/60 leading-relaxed font-medium">
+                  <p className="text-xs sm:text-sm text-charcoal/70 leading-relaxed font-normal">
                     {cap.desc}
                   </p>
                 </div>

@@ -18,7 +18,7 @@ export default function WhyAgentMesh() {
       icon: Database,
       title: "Stock Verification",
       headline: "Scans Supplier Inventory",
-      desc: "Stock agents check availability. If the primary seller lacks inventory, VendorFlow bypasses the deficit to secure backup supplies."
+      desc: "Stock agents check availability. If the primary seller lacks inventory, OpenRelay bypasses the deficit to secure backup supplies."
     },
     {
       id: "03",
@@ -37,49 +37,49 @@ export default function WhyAgentMesh() {
   ];
 
   return (
-    <section id="how-it-works" className="py-20 bg-cream border-t border-charcoal/10 relative">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
+    <section id="how-it-works" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         
         {/* Header */}
-        <div className="space-y-3 max-w-xl">
-          <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
+        <div className="space-y-4 max-w-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow/15 border border-yellow/30 text-yellow-dark text-xs font-bold uppercase tracking-wider">
             S-03 / How It Works
-          </span>
-          <h2 className="font-syne text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
-            Decentralized Sourcing Operations
+          </div>
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
+            Decentralized Sourcing <span className="font-serif italic font-normal text-yellow-dark lowercase capitalize">Operations</span>
           </h2>
-          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
-            VendorFlow coordinates complex procurement pipelines without manual emails, meetings, or spreadsheets.
+          <p className="text-sm sm:text-base text-charcoal/70 leading-relaxed font-normal">
+            OpenRelay coordinates complex procurement pipelines without manual emails, meetings, or spreadsheets.
           </p>
         </div>
 
         {/* 4 Large Connected Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             return (
               <div 
                 key={idx}
-                className="bg-cream border border-charcoal/10 rounded-2xl p-6 flex flex-col justify-between min-h-[260px] transition-all hover:border-charcoal/30 hover:-translate-y-0.5 duration-200 shadow-sm relative group"
+                className="bg-white border border-charcoal/10 rounded-2xl p-8 flex flex-col justify-between min-h-[300px] transition-all duration-300 hover:border-charcoal/30 hover:-translate-y-1.5 hover:shadow-xl relative group shadow-sm"
               >
                 {/* Numeric Step Badge */}
                 <div className="flex justify-between items-start">
-                  <span className="font-syne text-sm font-extrabold text-charcoal/20 group-hover:text-yellow-dark transition-colors">
+                  <span className="font-sans text-xl font-extrabold text-charcoal/20 group-hover:text-yellow-dark transition-colors">
                     {step.id}
                   </span>
-                  <div className="bg-charcoal/5 p-2 rounded-lg border border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all">
-                    <Icon className="w-4 h-4" />
+                  <div className="bg-charcoal/5 p-3 rounded-xl border border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all duration-300">
+                    <Icon className="w-5 h-5" />
                   </div>
                 </div>
 
-                <div className="space-y-2 mt-12">
-                  <span className="text-[8px] font-syne font-bold uppercase tracking-wider text-yellow-dark">
+                <div className="space-y-3 mt-10">
+                  <span className="text-[10px] font-sans font-extrabold uppercase tracking-wider text-yellow-dark block">
                     {step.title}
                   </span>
-                  <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">
+                  <h3 className="font-sans text-sm uppercase font-extrabold text-charcoal tracking-wide">
                     {step.headline}
                   </h3>
-                  <p className="text-[10px] text-charcoal/60 leading-relaxed font-semibold">
+                  <p className="text-xs sm:text-sm text-charcoal/70 leading-relaxed font-normal">
                     {step.desc}
                   </p>
                 </div>

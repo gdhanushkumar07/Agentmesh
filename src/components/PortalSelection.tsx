@@ -15,7 +15,7 @@ export default function PortalSelection({ onSelect }: PortalSelectionProps) {
       {/* Narrative Header */}
       <div className="text-center space-y-4 max-w-2xl mx-auto">
         <span className="text-[10px] font-syne uppercase tracking-widest text-yellow-dark bg-yellow/10 px-3 py-1 rounded-full font-bold">
-          VendorFlow Multi-Organization Demo Portal
+          OpenRelay Multi-Organization Demo Portal
         </span>
         <h1 className="font-syne text-3xl font-extrabold uppercase text-charcoal tracking-wide leading-tight">
           De-centralized AI Sourcing Experience
@@ -124,7 +124,7 @@ export default function PortalSelection({ onSelect }: PortalSelectionProps) {
         <div className="space-y-1">
           <h4 className="text-[10px] font-syne uppercase font-bold text-charcoal">Secure Permission Isolation</h4>
           <p className="text-[10px] text-charcoal/60 leading-relaxed font-semibold">
-            Neither organization exposes raw API routes or SQL databases directly. Under the hood, VendorFlow coordinates operations via **Aicoo's decentralized context-sharing and temporary write permissions**, protecting company data privacy.
+            Neither organization exposes raw API routes or SQL databases directly. Under the hood, OpenRelay coordinates operations via **Aicoo's decentralized context-sharing and temporary write permissions**, protecting company data privacy.
           </p>
         </div>
       </div>

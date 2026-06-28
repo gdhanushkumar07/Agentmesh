@@ -45,49 +45,49 @@ export default function WhyAicooExists() {
   ];
 
   return (
-    <section id="why-aicoo" className="py-20 bg-cream border-t border-charcoal/10 relative grid-bg">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
+    <section id="why-aicoo" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative grid-bg">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         
         {/* Header */}
-        <div className="space-y-3 max-w-xl">
-          <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
+        <div className="space-y-4 max-w-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow/15 border border-yellow/30 text-yellow-dark text-xs font-bold uppercase tracking-wider">
             S-04 / The Infrastructure Protocol
-          </span>
-          <h2 className="font-syne text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
-            Why Aicoo Is Essential
+          </div>
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
+            Why Aicoo Is <span className="font-serif italic font-normal text-yellow-dark lowercase capitalize">Essential</span>
           </h2>
-          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
+          <p className="text-sm sm:text-base text-charcoal/70 leading-relaxed font-normal">
             Intelligence is cheap. Secure cross-company communication is difficult. Aicoo provides the trusted pipeline that connects isolated enterprise AI systems.
           </p>
         </div>
 
         {/* 6 Feature Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {cards.map((card, idx) => {
             const Icon = card.icon;
             return (
               <div 
                 key={idx}
-                className="bg-cream border border-charcoal/10 rounded-2xl p-6 flex flex-col justify-between min-h-[220px] transition-all hover:border-charcoal/30 group shadow-sm"
+                className="bg-white border border-charcoal/10 rounded-2xl p-8 lg:p-10 flex flex-col justify-between min-h-[280px] transition-all duration-300 hover:border-charcoal/30 hover:-translate-y-1.5 hover:shadow-xl group"
               >
                 <div className="flex justify-between items-start">
-                  <div className="bg-charcoal/5 p-2 rounded-lg border border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all">
-                    <Icon className="w-4 h-4" />
+                  <div className="bg-charcoal/5 p-3 rounded-xl border border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all duration-300">
+                    <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[8px] font-mono text-charcoal/40 font-bold uppercase">Aicoo Protocol Standard</span>
+                  <span className="text-[10px] font-mono text-charcoal/40 font-bold uppercase">Aicoo Protocol Standard</span>
                 </div>
 
-                <div className="space-y-3 mt-8">
-                  <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">
+                <div className="space-y-4 mt-8">
+                  <h3 className="font-sans text-sm uppercase font-extrabold text-charcoal tracking-wide">
                     {card.title}
                   </h3>
-                  <p className="text-[10px] text-charcoal/70 leading-relaxed font-semibold">
+                  <p className="text-xs sm:text-sm text-charcoal/70 leading-relaxed font-normal">
                     {card.explanation}
                   </p>
                   
                   {/* Business Example Box */}
-                  <div className="bg-charcoal/5 border border-charcoal/5 p-3 rounded-xl text-[9px] leading-relaxed text-charcoal/55 font-semibold">
-                    <strong className="text-charcoal/75 block uppercase font-syne text-[7.5px] tracking-wider mb-0.5">Real-World Case:</strong>
+                  <div className="bg-charcoal/5 border border-charcoal/5 p-4 rounded-xl text-xs leading-relaxed text-charcoal/70 font-normal">
+                    <strong className="text-charcoal/80 block uppercase font-sans font-extrabold text-[10px] tracking-wider mb-1">Real-World Case:</strong>
                     {card.example}
                   </div>
                 </div>

@@ -197,7 +197,7 @@ export default function NetworkPage() {
             <div className="space-y-2">
               <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">Procurement Request Submitted</h3>
               <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
-                VendorFlow has registered the transaction. Aicoo is matching cryptographic identities across suppliers.
+                OpenRelay has registered the transaction. Aicoo is matching cryptographic identities across suppliers.
               </p>
               <p className="text-[10px] font-mono text-yellow-dark uppercase font-bold animate-pulse pt-3">
                 {submittingStatus}

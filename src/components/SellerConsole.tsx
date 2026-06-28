@@ -104,7 +104,7 @@ export default function SellerConsole({ onFulfillOrder, onBack }: SellerConsoleP
             <div className="p-4 bg-charcoal/5 border border-charcoal/10 rounded-xl space-y-1 text-[10px]">
               <div className="font-bold uppercase text-charcoal/50">Auto-Mitigation Protocol Available:</div>
               <p className="text-charcoal/75 leading-relaxed font-semibold">
-                VendorFlow can coordinate with <strong>Seller Beta (Audio Store)</strong> automatically through Aicoo to share backup stock securely without revealing our pricing algorithms or private customer lists.
+                OpenRelay can coordinate with <strong>Seller Beta (Audio Store)</strong> automatically through Aicoo to share backup stock securely without revealing our pricing algorithms or private customer lists.
               </p>
             </div>
 

@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { User, Headphones, CreditCard, Scale, Globe, UserCheck, ArrowRight, ShieldCheck, Cpu, Settings } from "lucide-react";
+import { User, Headphones, CreditCard, Globe, UserCheck, ArrowRight, ShieldCheck, Cpu, Settings } from "lucide-react";
 
 interface ArchConnection {
   id: string;
@@ -85,17 +85,17 @@ export default function ArchitectureSection() {
   ];
 
   return (
-    <section id="architecture" className="py-20 bg-cream border-t border-charcoal/10 relative">
-      <div className="max-w-7xl mx-auto px-6 space-y-12">
+    <section id="architecture" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative">
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         {/* Header */}
-        <div className="space-y-3 max-w-xl">
-          <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
+        <div className="space-y-4 max-w-xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow/15 border border-yellow/30 text-yellow-dark text-xs font-bold uppercase tracking-wider">
             S-08 / Architecture
-          </span>
-          <h2 className="font-syne text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
-            System Routing Architecture
+          </div>
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
+            System Routing <span className="font-serif italic font-normal text-yellow-dark lowercase capitalize">Architecture</span>
           </h2>
-          <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
+          <p className="text-sm sm:text-base text-charcoal/70 leading-relaxed font-normal">
             Hover over any connection path in the pipeline to audit the shared context parameters and permission scopes.
           </p>
         </div>
@@ -103,11 +103,11 @@ export default function ArchitectureSection() {
         {/* Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* SVG Diagram Canvas (8 Cols) */}
-          <div className="lg:col-span-8 bg-cream border border-charcoal/10 rounded-2xl p-4 flex items-center justify-center min-h-[300px] grid-bg">
+          <div className="lg:col-span-8 bg-white border border-charcoal/10 rounded-2xl p-6 flex items-center justify-center min-h-[340px] grid-bg shadow-sm">
             <svg viewBox="0 0 700 320" className="w-full h-full max-w-[700px] my-auto">
               <defs>
                 <marker id="arr-grey" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#121212" fillOpacity="0.2" />
+                  <path d="M 0 0 L 10 5 L 0 10 z" fill="#0e0f12" fillOpacity="0.2" />
                 </marker>
                 <marker id="arr-yellow" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
                   <path d="M 0 0 L 10 5 L 0 10 z" fill="#f2c94c" />
@@ -122,7 +122,7 @@ export default function ArchitectureSection() {
                     key={conn.id}
                     d={conn.d}
                     fill="none"
-                    stroke={isHovered ? "#f2c94c" : "#121212"}
+                    stroke={isHovered ? "#f2c94c" : "#0e0f12"}
                     strokeOpacity={isHovered ? 1 : 0.15}
                     strokeWidth={isHovered ? 4 : 2}
                     markerEnd={isHovered ? "url(#arr-yellow)" : "url(#arr-grey)"}
@@ -141,16 +141,16 @@ export default function ArchitectureSection() {
                 return (
                   <g key={node.id} transform={`translate(${node.x}, ${node.y})`}>
                     <circle
-                      r="18"
-                      fill={node.id === 'human' ? '#f2c94c' : '#121212'}
-                      stroke={isPart ? '#f2c94c' : '#121212'}
-                      strokeWidth={isPart ? 2.5 : 1}
+                      r="20"
+                      fill={node.id === 'human' ? '#f2c94c' : '#0e0f12'}
+                      stroke={isPart ? '#f2c94c' : '#0e0f12'}
+                      strokeWidth={isPart ? 3 : 1}
                       className="transition-all duration-300"
                     />
                     <g transform="translate(-8, -8)" className={node.id === 'human' ? 'text-charcoal' : 'text-cream'}>
                       <NodeIcon className="w-4 h-4" />
                     </g>
-                    <text y="30" textAnchor="middle" fill="#121212" className="text-[8px] font-syne uppercase font-bold tracking-wider opacity-75">
+                    <text y="36" textAnchor="middle" fill="#0e0f12" className="text-[9px] font-sans uppercase font-extrabold tracking-wider opacity-80">
                       {node.label}
                     </text>
                   </g>
@@ -160,44 +160,44 @@ export default function ArchitectureSection() {
           </div>
 
           {/* Audit Details Panel (4 Cols) */}
-          <div className="lg:col-span-4 bg-charcoal text-cream border border-charcoal rounded-2xl p-6 flex flex-col justify-between shadow-sm min-h-[280px] grid-bg-dark">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4.5 h-4.5 text-yellow animate-pulse shrink-0" />
-                <span className="text-xs font-syne uppercase font-bold text-cream">Transaction Auditor</span>
+          <div className="lg:col-span-4 bg-charcoal text-cream border border-charcoal rounded-2xl p-8 flex flex-col justify-between shadow-xl min-h-[320px] grid-bg-dark">
+            <div className="space-y-6">
+              <div className="flex items-center gap-2.5">
+                <ShieldCheck className="w-5 h-5 text-yellow animate-pulse shrink-0" />
+                <span className="text-xs font-sans uppercase font-extrabold tracking-wide text-cream">Transaction Auditor</span>
               </div>
 
               {hoveredConn ? (
-                <div className="space-y-3.5 animate-in fade-in slide-in-from-bottom-2 duration-200">
+                <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-200">
                   <div className="space-y-1">
-                    <span className="text-[9px] font-syne uppercase font-bold text-white/40">Active Pipeline Endpoint</span>
-                    <h3 className="font-mono text-xs font-bold text-cream bg-white/10 px-2 py-0.5 rounded inline-block mt-0.5">
+                    <span className="text-[10px] font-sans font-extrabold uppercase text-white/40 tracking-wider block">Active Pipeline Endpoint</span>
+                    <h3 className="font-mono text-xs font-bold text-yellow bg-white/10 px-2.5 py-1 rounded border border-white/10 inline-block">
                       {hoveredConn.endpoint}
                     </h3>
                   </div>
 
-                  <div className="space-y-0.5">
-                    <span className="text-[9px] font-syne uppercase font-bold text-yellow">Shared Context</span>
-                    <p className="text-[11px] text-white/70 leading-relaxed font-medium">{hoveredConn.context}</p>
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-sans font-extrabold uppercase text-yellow tracking-wider block">Shared Context</span>
+                    <p className="text-xs text-white/70 leading-relaxed font-normal">{hoveredConn.context}</p>
                   </div>
 
-                  <div className="space-y-0.5">
-                    <span className="text-[9px] font-syne uppercase font-bold text-yellow">Permissions Applied</span>
-                    <p className="text-[11px] text-white/70 leading-relaxed font-medium">{hoveredConn.permissions}</p>
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-sans font-extrabold uppercase text-yellow tracking-wider block">Permissions Applied</span>
+                    <p className="text-xs text-white/70 leading-relaxed font-normal">{hoveredConn.permissions}</p>
                   </div>
                 </div>
               ) : (
-                <div className="space-y-2 py-8 text-white/30 text-center">
-                  <ArrowRight className="w-8 h-8 mx-auto opacity-20" />
-                  <p className="font-syne text-xs uppercase tracking-wider">Hover data path</p>
-                  <p className="text-[9px] opacity-75 leading-relaxed">
+                <div className="space-y-3 py-10 text-white/40 text-center">
+                  <ArrowRight className="w-8 h-8 mx-auto opacity-30" />
+                  <p className="font-sans text-xs uppercase font-extrabold tracking-wider text-white/60">Hover data path</p>
+                  <p className="text-xs font-normal leading-relaxed max-w-xs mx-auto">
                     Move your cursor over connection lines between nodes to inspect variables, scopes, and endpoint keys.
                   </p>
                 </div>
               )}
             </div>
 
-            <div className="border-t border-white/5 pt-4 text-[9px] font-bold text-white/40 uppercase tracking-wider">
+            <div className="border-t border-white/10 pt-4 text-[10px] font-extrabold text-white/40 uppercase tracking-wider font-sans">
               Aicoo Compliance Ledger
             </div>
           </div>
