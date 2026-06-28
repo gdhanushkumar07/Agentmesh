@@ -40,7 +40,7 @@ export default function ProcurementPortal({ onSelectScenario }: ProcurementPorta
 
     if (isHighValue) {
       scenarioId = "high-value-procurement"; // Scenario 2 (Human approval triggers because price > $1M)
-    } else if (selectedProd.id === "solar" || selectedProd.category === "Renewable Energy") {
+    } else if (selectedProd.id === "solar" || (selectedProd.category as string) === "Renewable Energy") {
       scenarioId = "supplier-outage-recovery"; // Scenario 3 (WOW moment outage recovery)
     } else if (priority === "Immediate Priority Dispatch") {
       scenarioId = "supplier-outage-recovery";
@@ -142,11 +142,11 @@ export default function ProcurementPortal({ onSelectScenario }: ProcurementPorta
                       {prod.category}
                     </span>
                     <span className={`text-[8px] font-syne font-extrabold uppercase px-1.5 py-0.5 rounded border ${
-                      prod.status === "In Stock" || prod.status === "Available from Multiple Suppliers"
+                      prod.availability === "In Stock" || prod.availability === "Multiple Sellers"
                         ? "bg-green-50 text-green-700 border-green-200"
                         : "bg-yellow/20 text-yellow-dark border-yellow/30"
                     }`}>
-                      {prod.status}
+                      {prod.availability}
                     </span>
                   </div>
                   <h4 className="text-xs font-syne font-extrabold uppercase text-charcoal">{prod.name}</h4>
@@ -159,7 +159,7 @@ export default function ProcurementPortal({ onSelectScenario }: ProcurementPorta
                   </div>
                   <div className="text-right space-y-0.5">
                     <div className="text-[8px] font-syne uppercase text-charcoal/40 font-bold">Transit Time</div>
-                    <div className="text-[10px] font-bold text-charcoal/70">{prod.deliveryTime}</div>
+                    <div className="text-[10px] font-bold text-charcoal/70">{prod.deliveryEstimate}</div>
                   </div>
                 </div>
               </div>
@@ -183,7 +183,7 @@ export default function ProcurementPortal({ onSelectScenario }: ProcurementPorta
           <h4 className="text-xs font-syne font-extrabold uppercase text-charcoal">{selectedProd.name}</h4>
           <div className="flex justify-between items-center text-[10px] border-t border-charcoal/5 pt-2 mt-1">
             <span className="font-semibold text-charcoal/60">Suppliers Connected:</span>
-            <span className="font-bold text-charcoal">{selectedProd.suppliers} COOs</span>
+            <span className="font-bold text-charcoal">{selectedProd.backupSeller ? 2 : 1} Orgs</span>
           </div>
         </div>
 

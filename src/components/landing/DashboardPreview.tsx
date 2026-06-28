@@ -90,17 +90,17 @@ export default function DashboardPreview() {
           {/* Mock Dashboard Bottom Control panel */}
           <div className="px-6 py-4 bg-cream border-t border-charcoal/10 flex flex-col sm:flex-row gap-4 justify-between items-center">
             <div className="flex items-center gap-2">
-              <span className="text-[9px] font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2 py-0.5 rounded font-bold">Scenario selector</span>
-              <span className="text-[10px] text-charcoal/60 font-semibold leading-relaxed">
-                Choose pre-built supply chain simulations (Delayed Shipment, Damaged Goods Claim) to auto-play routing.
+              <span className="text-[9px] font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2 py-0.5 rounded font-bold">Interactive Demo</span>
+              <span className="text-[10px] text-charcoal/65 font-semibold leading-relaxed">
+                Experience how a single marketplace order triggers secure coordination between multiple independent AI agents through Aicoo.
               </span>
             </div>
             <button
               onClick={() => router.push("/network")}
-              className="flex items-center gap-2 px-5 py-2.5 bg-yellow hover:bg-yellow-dark text-charcoal rounded-xl font-syne font-bold uppercase text-xs transition-all shadow-sm border border-yellow-dark shrink-0"
+              className="flex items-center gap-2 px-6 py-3.5 bg-charcoal hover:bg-charcoal/90 text-cream rounded-xl font-syne font-bold uppercase text-xs transition-all shadow-md shrink-0 border border-charcoal"
             >
-              <span>Deploy VendorFlow Nodes</span>
-              <ArrowRight className="w-4 h-4" />
+              <span>Launch Live Demo</span>
+              <ArrowRight className="w-4 h-4 text-yellow" />
             </button>
           </div>
         </div>

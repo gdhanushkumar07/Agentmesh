@@ -14,6 +14,7 @@ interface CustomerJourneyProps {
   isPlaying: boolean;
   setIsPlaying: (playing: boolean) => void;
   onOpenBriefing?: () => void;
+  perspective?: 'customer' | 'seller';
 }
 
 export default function CustomerJourney({
@@ -23,19 +24,26 @@ export default function CustomerJourney({
   onReset,
   isPlaying,
   setIsPlaying,
-  onOpenBriefing
+  onOpenBriefing,
+  perspective = 'customer'
 }: CustomerJourneyProps) {
   const steps = scenario.steps;
   const currentStep = currentStepIndex >= 0 ? steps[currentStepIndex] : null;
   const isComplete = currentStepIndex === steps.length - 1;
 
-  const milestones = [
-    { label: "Request Submitted", triggerIdx: 0 },
-    { label: "Suppliers Located", triggerIdx: 1 },
-    { label: "Inventory Reserved", triggerIdx: 3 },
-    { label: "Shipment Planned", triggerIdx: 5 },
-    { label: "Delivery Scheduled", triggerIdx: 6 },
-    { label: "Order Confirmed", triggerIdx: 7 }
+  const isSeller = perspective === 'seller';
+
+  const milestones = isSeller ? [
+    { label: "Incoming Request", triggerIdx: 0 },
+    { label: "Inventory Reserved", triggerIdx: 5 },
+    { label: "Warehouse Allocation", triggerIdx: 6 },
+    { label: "Courier Assigned", triggerIdx: 7 },
+    { label: "Payment Confirmed", triggerIdx: 9 }
+  ] : [
+    { label: "Order Confirmed", triggerIdx: 0 },
+    { label: "Preparing Shipment", triggerIdx: 6 },
+    { label: "Out for Delivery", triggerIdx: 7 },
+    { label: "Delivered", triggerIdx: 10 }
   ];
 
   // Triggers human sign-off alert if this is the high-value review scenario on step 3
@@ -48,10 +56,10 @@ export default function CustomerJourney({
         <div className="flex justify-between items-start border-b border-charcoal/10 pb-4">
           <div className="space-y-1">
             <span className="text-[9px] font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2 py-0.5 rounded font-bold">
-              Perspective A
+              {isSeller ? "Seller Alpha Perspective" : "Customer Perspective"}
             </span>
             <h3 className="font-syne text-sm font-extrabold uppercase text-charcoal tracking-wide">
-              Customer Journey View
+              {isSeller ? "Seller Sourcing Flow" : "Order Tracking View"}
             </h3>
           </div>
           <button

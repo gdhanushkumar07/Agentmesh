@@ -49,7 +49,7 @@ export default function CooConversationTimeline({ scenario, currentStepIndex }: 
           <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2 py-0.5 rounded font-bold">Aicoo Timeline</span>
           <div className="flex items-center gap-1.5 text-xs font-syne uppercase font-bold text-charcoal">
             <MessageSquare className="w-4 h-4 text-yellow-dark" />
-            <span>AI COO Conversation Timeline</span>
+            <span>Agent Conversation Timeline</span>
           </div>
         </div>
       </div>
@@ -75,16 +75,26 @@ export default function CooConversationTimeline({ scenario, currentStepIndex }: 
             >
               {/* Header row: sender, receiver, capability */}
               <div className="flex justify-between items-start gap-2 flex-wrap">
-                <div className="flex items-center gap-1.5">
-                  <span className={`text-[9px] font-syne font-extrabold uppercase px-2 py-0.5 rounded border ${getSenderColor(step.senderName)}`}>
-                    {step.senderName}
+                <div className="flex flex-col gap-0.5">
+                  <div className="flex items-center gap-1 flex-wrap">
+                    <span className={`text-[9px] font-syne font-extrabold uppercase px-1.5 py-0.5 rounded border ${getSenderColor(step.senderOrg)}`}>
+                      {step.senderAgent}
+                    </span>
+                    <span className="text-[8px] text-charcoal/40 font-bold uppercase">➔</span>
+                    <span className="text-[9px] text-charcoal/80 font-extrabold">{step.receiverAgent}</span>
+                  </div>
+                  <span className="text-[8px] text-charcoal/40 font-bold uppercase tracking-tight">
+                    {step.senderOrg} ➔ {step.receiverOrg}
                   </span>
-                  <span className="text-[8px] text-charcoal/40 font-bold uppercase">➔</span>
-                  <span className="text-[9px] text-charcoal/60 font-bold">{step.receiverName}</span>
                 </div>
                 
                 <span className={`text-[8px] font-syne font-extrabold uppercase px-1.5 py-0.5 rounded border ${getCapabilityBadge(step.capability)}`}>
-                  Aicoo: {step.capability}
+                  Aicoo Capability Used: {
+                    step.capability === 'Context Share' ? 'Context Sharing' : 
+                    step.capability === 'Permission' ? 'Permission' :
+                    step.capability === 'Briefing' ? 'Briefing' :
+                    step.capability === 'Heartbeat' ? 'Heartbeat' : 'Routing'
+                  }
                 </span>
               </div>
 
@@ -95,7 +105,7 @@ export default function CooConversationTimeline({ scenario, currentStepIndex }: 
 
               {/* Routing metadata footer */}
               <div className="flex justify-between items-center text-[8px] text-charcoal/40 font-bold uppercase border-t border-charcoal/5 pt-1.5 mt-1">
-                <span>Task: {step.apiCallPath}</span>
+                <span>API: {step.apiCallName}</span>
                 <span>Reason: {step.reason}</span>
               </div>
             </div>

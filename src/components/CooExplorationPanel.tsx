@@ -50,16 +50,18 @@ export default function CooExplorationPanel({ scenario, currentStepIndex }: CooE
             {/* Organizations Grid */}
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-1">
-                <span className="text-[9px] font-syne uppercase text-charcoal/40 font-bold block">Sender COO</span>
+                <span className="text-[9px] font-syne uppercase text-charcoal/40 font-bold block">Sender Agent</span>
                 <span className="bg-charcoal text-cream text-[10px] font-syne font-extrabold uppercase px-2 py-1 rounded inline-block truncate max-w-full">
-                  {currentStep.senderName}
+                  {currentStep.senderAgent}
                 </span>
+                <span className="text-[8px] font-mono uppercase block text-charcoal/40 font-bold">{currentStep.senderOrg}</span>
               </div>
               <div className="space-y-1">
-                <span className="text-[9px] font-syne uppercase text-charcoal/40 font-bold block">Receiver COO</span>
+                <span className="text-[9px] font-syne uppercase text-charcoal/40 font-bold block">Receiver Agent</span>
                 <span className="bg-yellow text-charcoal text-[10px] font-syne font-extrabold uppercase px-2 py-1 rounded border border-yellow-dark inline-block truncate max-w-full">
-                  {currentStep.receiverName}
+                  {currentStep.receiverAgent}
                 </span>
+                <span className="text-[8px] font-mono uppercase block text-charcoal/40 font-bold">{currentStep.receiverOrg}</span>
               </div>
             </div>
 

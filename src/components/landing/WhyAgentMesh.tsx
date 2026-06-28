@@ -2,136 +2,92 @@
 "use client";
 
 import React from "react";
-import { 
-  Headphones, CreditCard, Scale, Settings, Cpu, Globe, Crown, User 
-} from "lucide-react";
+import { ShoppingCart, Database, Key, CheckCircle } from "lucide-react";
 
 export default function WhyAgentMesh() {
-  const agents = [
+  const steps = [
     {
-      id: "V-01",
-      icon: Headphones,
-      name: "Procurement Agent",
-      role: "Workflow Triage",
-      desc: "Autonomously receives issues (e.g., delays), checks SLA directories, and forwards requests with full context via Aicoo.",
-      style: "bg-cream text-charcoal border-charcoal/10"
+      id: "01",
+      icon: ShoppingCart,
+      title: "Order Checkout",
+      headline: "Customer Places Purchase Request",
+      desc: "Selecting products from a catalog triggers the B2B order. Marketplace agents receive the requisition and initialize the transaction."
     },
     {
-      id: "V-02",
-      icon: CreditCard,
-      name: "Finance Agent",
-      role: "Accounting & Credits",
-      desc: "Audits Stripe transactions, approves credit payouts, and posts billing ledger summaries to persistent workspaces.",
-      style: "bg-yellow text-charcoal border-yellow-dark"
+      id: "02",
+      icon: Database,
+      title: "Stock Verification",
+      headline: "Scans Supplier Inventory",
+      desc: "Stock agents check availability. If the primary seller lacks inventory, VendorFlow bypasses the deficit to secure backup supplies."
     },
     {
-      id: "V-03",
-      icon: Scale,
-      name: "Insurance Agent",
-      role: "Liability Audit",
-      desc: "Validates damage claims against contract policy logs, reviews gdpr flags, and compiles escalated claims.",
-      style: "bg-charcoal text-cream border-white/5"
+      id: "03",
+      icon: Key,
+      title: "Secured Coordination",
+      headline: "Aicoo Routes Permissioned Data",
+      desc: "AI agents for warehousing, courier routing, payment gateways, and insurance underwriters collaborate securely in the background."
     },
     {
-      id: "V-04",
-      icon: Cpu,
-      name: "Warehouse Agent",
-      role: "Inventory Scan",
-      desc: "Scans stock forecasting levels and flags broken cargo incidents directly to Aicoo memory folders.",
-      style: "bg-cream text-charcoal border-charcoal/10"
-    },
-    {
-      id: "V-05",
-      icon: Settings,
-      name: "Shipping Agent",
-      role: "Logistics Sync",
-      desc: "Monitors transit delay signals and reroutes delivery paths using active routing tool integrations.",
-      style: "bg-yellow text-charcoal border-yellow-dark"
-    },
-    {
-      id: "V-06",
-      icon: Globe,
-      name: "Supplier Agent",
-      role: "External Supplier",
-      desc: "Validates shipping weights and accesses folder-scoped share links safely across company borders.",
-      style: "bg-cream text-charcoal border-charcoal/10"
-    },
-    {
-      id: "V-07",
-      icon: Crown,
-      name: "CEO Agent",
-      role: "Corporate Executive",
-      desc: "Consolidates all department briefing matrix cards into a priority Eisenhower grid for immediate human review.",
-      style: "bg-charcoal text-cream border-white/5"
-    },
-    {
-      id: "V-08",
-      icon: User,
-      name: "Customer Agent",
-      role: "Customer Persona",
-      desc: "Initializes complaints and coordinates directly with support endpoints to receive real-time ETA briefings.",
-      style: "bg-yellow text-charcoal border-yellow-dark"
+      id: "04",
+      icon: CheckCircle,
+      title: "Fulfillment Complete",
+      headline: "Order Dispatched Confirmed",
+      desc: "Funds are verified, shipping labels generated, and express carriers booked. The order is delivered tomorrow."
     }
   ];
 
   return (
-    <section id="agents" className="py-20 bg-cream border-t border-charcoal/10 relative">
+    <section id="how-it-works" className="py-20 bg-cream border-t border-charcoal/10 relative">
       <div className="max-w-7xl mx-auto px-6 space-y-12">
+        
         {/* Header */}
-        <div className="space-y-3 max-w-2xl">
+        <div className="space-y-3 max-w-xl">
           <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
-            S-05 / Meet VendorFlow
+            S-03 / How It Works
           </span>
           <h2 className="font-syne text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
-            Meet VendorFlow
+            Decentralized Sourcing Operations
           </h2>
           <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
-            Today's companies already use AI. Tomorrow's companies will coordinate AI COOs across organizations. VendorFlow demonstrates how independent companies securely communicate using Aicoo. The dashboard exists to visualize that invisible coordination.
+            VendorFlow coordinates complex procurement pipelines without manual emails, meetings, or spreadsheets.
           </p>
         </div>
 
-        {/* Agents Grid */}
+        {/* 4 Large Connected Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {agents.map((agent) => {
-            const Icon = agent.icon;
-            const isDark = agent.style.includes("bg-charcoal");
+          {steps.map((step, idx) => {
+            const Icon = step.icon;
             return (
               <div 
-                key={agent.id}
-                className={`border rounded-2xl p-6 flex flex-col justify-between min-h-[260px] transition-all hover:-translate-y-1 hover:shadow-sm group ${agent.style}`}
+                key={idx}
+                className="bg-cream border border-charcoal/10 rounded-2xl p-6 flex flex-col justify-between min-h-[260px] transition-all hover:border-charcoal/30 hover:-translate-y-0.5 duration-200 shadow-sm relative group"
               >
+                {/* Numeric Step Badge */}
                 <div className="flex justify-between items-start">
-                  <span className={`font-syne text-sm font-bold opacity-30 group-hover:opacity-100 transition-opacity`}>
-                    {agent.id}
+                  <span className="font-syne text-sm font-extrabold text-charcoal/20 group-hover:text-yellow-dark transition-colors">
+                    {step.id}
                   </span>
-                  <div className={`p-2 rounded-lg border ${
-                    isDark 
-                      ? "bg-white/10 border-white/5 text-cream" 
-                      : "bg-charcoal/5 border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all"
-                  }`}>
+                  <div className="bg-charcoal/5 p-2 rounded-lg border border-charcoal/5 text-charcoal group-hover:bg-charcoal group-hover:text-yellow transition-all">
                     <Icon className="w-4 h-4" />
                   </div>
                 </div>
 
                 <div className="space-y-2 mt-12">
-                  <span className={`text-[9px] font-syne font-bold uppercase tracking-wider ${
-                    isDark ? "text-yellow" : "text-yellow-dark"
-                  }`}>
-                    {agent.role}
+                  <span className="text-[8px] font-syne font-bold uppercase tracking-wider text-yellow-dark">
+                    {step.title}
                   </span>
-                  <h3 className="font-syne text-xs uppercase font-extrabold">
-                    {agent.name}
+                  <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">
+                    {step.headline}
                   </h3>
-                  <p className={`text-[11px] leading-relaxed font-medium ${
-                    isDark ? "text-white/60" : "text-charcoal/60"
-                  }`}>
-                    {agent.desc}
+                  <p className="text-[10px] text-charcoal/60 leading-relaxed font-semibold">
+                    {step.desc}
                   </p>
                 </div>
               </div>
             );
           })}
         </div>
+
       </div>
     </section>
   );

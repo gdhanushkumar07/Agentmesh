@@ -26,19 +26,26 @@ export default function Home() {
   }, []);
 
   const navLinks = [
+    { href: "#", label: "Home" },
     { href: "#problem", label: "Problem" },
-    { href: "#agents", label: "Agents" },
-    { href: "#architecture", label: "Architecture" },
+    { href: "#how-it-works", label: "How It Works" },
+    { href: "#why-aicoo", label: "Why Aicoo" },
     { href: "#technology", label: "Technology" },
-    { href: "#demo-preview", label: "Demo" }
+    { href: "#demo-preview", label: "Live Demo" }
   ];
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+    
+    if (id === "#") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     const element = document.getElementById(id.replace("#", ""));
     if (element) {
-      const offset = 80; // Navbar height
+      const offset = 85; // Navbar height
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -89,7 +96,7 @@ export default function Home() {
             className="flex items-center gap-1.5 px-4 py-1.5 bg-charcoal border border-charcoal text-cream hover:bg-charcoal/90 rounded-lg text-xs font-syne font-bold uppercase transition-all shadow-sm"
           >
             <Layout className="w-3.5 h-3.5" />
-            <span>Dashboard</span>
+            <span>Launch Live Demo</span>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -121,20 +128,20 @@ export default function Home() {
         <div className="flex-1 max-w-2xl space-y-6 md:pr-8 py-8">
           <div className="flex items-center gap-2">
             <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
-              S-01 / B2B Coordination Platform
+              THE COMMUNICATION LAYER FOR AI AGENTS ACROSS ORGANIZATIONS
             </span>
           </div>
           
           <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl font-extrabold uppercase tracking-tight text-charcoal leading-[1.1]">
-            The Coordination Layer <br />
+            COORDINATE AI AGENTS <br />
             <span className="text-yellow-dark bg-yellow/10 px-4 py-1 rounded-2xl border border-yellow/20 inline-block mt-2.5 text-2xl sm:text-3xl md:text-4xl">
-              For AI Organizations.
+              SECURELY ACROSS COMPANIES.
             </span>
           </h1>
           
           <div className="text-sm text-charcoal/70 font-medium leading-relaxed space-y-2">
             <p className="font-bold text-charcoal">
-              VendorFlow is a B2B operations coordination platform. While AgentMesh powers the underlying coordination engine, Aicoo enables secure communication, routing, and permissioned context sharing between AI agents belonging to different organizations.
+              Modern marketplaces depend on multiple independent organizations working together. VendorFlow demonstrates how AI agents securely communicate, route requests, share permissioned context and coordinate through Aicoo.
             </p>
           </div>
 
@@ -151,7 +158,7 @@ export default function Home() {
               onClick={(e) => handleScrollTo(e, "#problem")}
               className="flex items-center justify-center gap-2 px-6 py-3.5 bg-white border border-charcoal/10 hover:border-charcoal/30 text-charcoal rounded-xl font-syne font-bold uppercase text-xs transition-all shadow-sm"
             >
-              <span>Explore the Problem</span>
+              <span>See How It Works</span>
             </a>
           </div>
         </div>

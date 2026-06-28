@@ -21,42 +21,26 @@ export default function CooHealthMonitor({ scenario, currentStepIndex = -1 }: Co
   // Compute COO Agent health states dynamically from the active scenario step
   const getCooHealthStates = (): CooHealthState[] => {
     const defaultStates: CooHealthState[] = [
-      { name: "Buyer AI COO", org: "Buyer Company", status: "Healthy", diagnostic: "Autonomous routing checks clear. Latency: 45ms" },
-      { name: "Supplier Alpha AI COO", org: "Supplier Alpha", status: "Healthy", diagnostic: "Active ledger session. Latency: 62ms" },
-      { name: "Supplier Beta AI COO", org: "Supplier Beta", status: "Healthy", diagnostic: "Idling, ready for sourcing orders. Latency: 32ms" },
-      { name: "Warehouse AI COO", org: "Warehouse Partner", status: "Healthy", diagnostic: "Inventory scan pipelines clear. Latency: 55ms" },
-      { name: "Logistics AI COO", org: "Shipping Partner", status: "Healthy", diagnostic: "Priority carrier scheduler live. Latency: 48ms" },
-      { name: "Finance AI COO", org: "Buyer Finance", status: "Healthy", diagnostic: "Auditing guidelines database. Latency: 50ms" },
-      { name: "Insurance AI COO", org: "Transit Insurance", status: "Healthy", diagnostic: "Risk underwriting engine online. Latency: 40ms" }
+      { name: "Marketplace Order Agent", org: "Marketplace Platform", status: "Healthy", diagnostic: "Active order pipeline listening. Latency: 45ms" },
+      { name: "Seller Inventory Agent", org: "Seller Alpha", status: "Healthy", diagnostic: "Active stock check query. Latency: 62ms" },
+      { name: "Seller Inventory Agent 2", org: "Seller Beta", status: "Healthy", diagnostic: "Buffer reserves stand-by. Latency: 32ms" },
+      { name: "Warehouse Agent", org: "Warehouse Hub", status: "Healthy", diagnostic: "Smart packing lane queue clear. Latency: 55ms" },
+      { name: "Logistics Agent", org: "Logistics Carrier", status: "Healthy", diagnostic: "Courier dispatch routes clear. Latency: 48ms" },
+      { name: "Payment Agent", org: "Marketplace Platform", status: "Healthy", diagnostic: "Stripe capture gateway listening. Latency: 50ms" },
+      { name: "Insurance Agent", org: "Asset Insurance", status: "Healthy", diagnostic: "Transit policy underwriting clear. Latency: 40ms" }
     ];
 
     if (!scenario) return defaultStates;
 
-    // Supplier Outage Recovery scenario check
-    if (scenario.id === "supplier-outage-recovery") {
-      if (currentStepIndex === 2) {
+    // Seller Outage check (Headphones order scenario step 3)
+    if (scenario.id === "headphones-order-fulfillment") {
+      if (currentStepIndex === 3) {
         return defaultStates.map(coo => {
-          if (coo.name === "Supplier Alpha AI COO") {
+          if (coo.name === "Seller Inventory Agent") {
             return {
               ...coo,
               status: "Slow Response",
-              diagnostic: "Supplier Alpha unavailable. Failover recovery routing active."
-            };
-          }
-          return coo;
-        });
-      }
-    }
-
-    // High-Value Sourcing review check
-    if (scenario.id === "high-value-procurement") {
-      if (currentStepIndex === 3) {
-        return defaultStates.map(coo => {
-          if (coo.name === "Buyer AI COO") {
-            return {
-              ...coo,
-              status: "Under Audit",
-              diagnostic: "Manual verification required: Order value exceeds $1,000,000 limit."
+              diagnostic: "Connection Timeout. Aicoo Heartbeat detected inactivity on Seller Alpha."
             };
           }
           return coo;
@@ -140,10 +124,10 @@ export default function CooHealthMonitor({ scenario, currentStepIndex = -1 }: Co
           <div className="bg-yellow/10 border border-yellow-dark/20 p-4 rounded-xl space-y-2 animate-in fade-in duration-200">
             <h5 className="text-[10px] font-syne font-extrabold uppercase text-yellow-dark flex items-center gap-1.5">
               <Activity className="w-4 h-4 text-yellow-dark animate-pulse" />
-              <span>Failover Sourcing Action Diagnosed</span>
+              <span>Aicoo Heartbeat Outage Mitigation Active</span>
             </h5>
             <p className="text-[10px] text-charcoal/70 leading-relaxed font-semibold">
-              Network Monitor detected outage status on Supplier Alpha AI COO. Sourcing failover system has automatically re-routed inquiry tokens to Supplier Beta to complete order fulfillment.
+              Network Monitor detected timeout on primary Seller Alpha. Marketplace Order Agent has automatically bypassed the offline node, routing backup stock inquiries to Seller Beta.
             </p>
           </div>
         )}

@@ -18,13 +18,14 @@ interface Node {
 
 const NODES: Record<string, Node> = {
   customer: { id: "customer", label: "Customer Client", x: 60, y: 220, icon: User } as any,
-  support: { id: "support", label: "Buyer AI COO", x: 220, y: 220, icon: Headphones } as any,
-  billing: { id: "billing", label: "Finance AI COO", x: 400, y: 220, icon: CreditCard } as any,
-  legal: { id: "legal", label: "Insurance AI COO", x: 580, y: 220, icon: Scale } as any,
-  ceo: { id: "ceo", label: "Supplier Beta AI COO", x: 400, y: 80, icon: Crown } as any,
-  devops: { id: "devops", label: "Warehouse AI COO", x: 220, y: 360, icon: Cpu } as any,
-  operations: { id: "operations", label: "Logistics AI COO", x: 400, y: 360, icon: Settings } as any,
-  partner: { id: "partner", label: "Supplier Alpha AI COO", x: 740, y: 220, icon: Globe } as any,
+  support: { id: "support", label: "Marketplace Order Agent", x: 220, y: 220, icon: Headphones } as any,
+  billing: { id: "billing", label: "Payment Agent", x: 400, y: 220, icon: CreditCard } as any,
+  legal: { id: "legal", label: "Insurance Agent", x: 580, y: 220, icon: Scale } as any,
+  ceo: { id: "ceo", label: "Seller Inventory Agent 2", x: 400, y: 80, icon: Crown } as any,
+  devops: { id: "devops", label: "Warehouse Agent", x: 220, y: 360, icon: Cpu } as any,
+  operations: { id: "operations", label: "Logistics Agent", x: 400, y: 360, icon: Settings } as any,
+  partner: { id: "partner", label: "Seller Inventory Agent", x: 740, y: 220, icon: Globe } as any,
+  returns: { id: "returns", label: "Returns Agent", x: 580, y: 360, icon: RotateCcw } as any,
 };
 
 const EDGES = [
@@ -39,6 +40,7 @@ const EDGES = [
   { from: "partner", to: "devops", dashed: false },
   { from: "operations", to: "ceo", dashed: true },
   { from: "ceo", to: "support", dashed: true },
+  { from: "returns", to: "support", dashed: true },
 ];
 
 function getNodeColors(id: string) {
@@ -50,7 +52,8 @@ function getNodeColors(id: string) {
     partner: { bg: "#eab308", fg: "#121212", stroke: "#eab308" },      // Yellow
     ceo: { bg: "#a855f7", fg: "#f4f4f0", stroke: "#a855f7" },          // Purple
     devops: { bg: "#06b6d4", fg: "#f4f4f0", stroke: "#06b6d4" },       // Cyan
-    operations: { bg: "#2563eb", fg: "#f4f4f0", stroke: "#2563eb" }    // Blue
+    operations: { bg: "#2563eb", fg: "#f4f4f0", stroke: "#2563eb" },   // Blue
+    returns: { bg: "#db2777", fg: "#f4f4f0", stroke: "#db2777" }        // Pink
   };
   return colorMap[id] || { bg: "#4b5563", fg: "#f4f4f0", stroke: "#4b5563" };
 }
@@ -194,8 +197,18 @@ export default function AgentNetwork({
                     repeatCount="indefinite"
                     path={`M ${NODES[currentStep.source].x} ${NODES[currentStep.source].y} L ${NODES[currentStep.target].x} ${NODES[currentStep.target].y}`}
                   />
-                  <rect x="-45" y="-22" width="90" height="14" rx="3" fill="#121212" opacity="0.85" />
-                  <text x="0" y="-12" fill="#f2c94c" fontSize="8" textAnchor="middle" fontWeight="bold">
+                  {/* Aicoo Protocol Badge */}
+                  <rect x="-50" y="-34" width="100" height="12" rx="3" fill="#f2c94c" />
+                  <text x="0" y="-25" fill="#121212" fontSize="7" textAnchor="middle" fontWeight="extrabold" fontFamily="monospace">
+                    {currentStep.capability === 'Context Share' ? 'Aicoo Context Share' : 
+                     currentStep.capability === 'Permission' ? 'Aicoo Permission' :
+                     currentStep.capability === 'Briefing' ? 'Aicoo Briefing' :
+                     currentStep.capability === 'Heartbeat' ? 'Aicoo Heartbeat' : 'Aicoo Routing'}
+                  </text>
+
+                  {/* Sourcing Action Badge */}
+                  <rect x="-42" y="-19" width="84" height="12" rx="3" fill="#121212" opacity="0.9" />
+                  <text x="0" y="-10" fill="#f2c94c" fontSize="7.5" textAnchor="middle" fontWeight="bold">
                     {currentStep.badge}
                   </text>
                 </g>
@@ -211,6 +224,16 @@ export default function AgentNetwork({
             const isSource = currentStep && currentStep.source === node.id;
             const isNodeActive = isGlow || isTarget || isSource;
             const colors = getNodeColors(node.id);
+
+            // Dynamically evaluate organization ownership for subtitles
+            const orgSubtitle = node.id === 'customer' ? 'Customer Portal' :
+              (node.id === 'support' || node.id === 'billing') ? 'Marketplace Platform' :
+              node.id === 'partner' ? 'Seller Alpha' :
+              node.id === 'ceo' ? 'Seller Beta' :
+              node.id === 'devops' ? 'Warehouse Hub' :
+              node.id === 'operations' ? 'Logistics Carrier' :
+              node.id === 'legal' ? 'Asset Insurance' :
+              node.id === 'returns' ? 'Returns Desk' : '';
 
             return (
               <g key={node.id} transform={`translate(${node.x}, ${node.y})`} className="cursor-pointer">
@@ -228,8 +251,11 @@ export default function AgentNetwork({
                 <g transform="translate(-10, -10)" style={{ color: colors.fg }}>
                   <NodeIcon className="w-5 h-5" />
                 </g>
-                <text y="38" textAnchor="middle" fill="#121212" className="text-[10px] font-syne uppercase font-bold tracking-wider opacity-80 select-none">
+                <text y="38" textAnchor="middle" fill="#121212" className="text-[10px] font-syne uppercase font-bold tracking-wider opacity-85 select-none">
                   {node.label}
+                </text>
+                <text y="48" textAnchor="middle" fill="#121212" className="text-[8px] font-mono uppercase font-bold tracking-tight opacity-40 select-none">
+                  {orgSubtitle}
                 </text>
               </g>
             );

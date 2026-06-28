@@ -22,7 +22,7 @@ export default function FutureOfWork() {
   ];
 
   return (
-    <section id="problem" className="py-20 bg-cream border-t border-charcoal/10 relative grid-bg">
+    <section id="evolution" className="py-20 bg-cream border-t border-charcoal/10 relative grid-bg">
       <div className="max-w-7xl mx-auto px-6 space-y-12">
         {/* Header */}
         <div className="space-y-3 max-w-2xl">

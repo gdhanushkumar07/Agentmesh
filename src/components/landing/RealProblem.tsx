@@ -2,97 +2,92 @@
 "use client";
 
 import React from "react";
-import { ShieldX, ShieldCheck, X, Check } from "lucide-react";
+import { ShoppingCart, Headphones, Store, Home, Truck, CreditCard, Shield, Scale, ArrowRight, Lock } from "lucide-react";
 
 export default function RealProblem() {
-  const pointsWithout = [
-    { title: "Support AI cannot talk to Supplier AI", desc: "Customer complaints are blocked because agents have no direct communication bridge." },
-    { title: "Supplier AI cannot access Finance AI", desc: "No secure permission system to request invoice checks without exposing the database." },
-    { title: "Every Agent Repeats Work", desc: "No shared ledger. Every node starts blank and asks the customer for redundant details." },
-    { title: "Context Disappears", desc: "Memos, Stripe statuses, and customs logs are lost between email forwarding." },
-    { title: "Permissions are Impossible", desc: "No standard way to grant a 3rd party partner access to just one specific folder." }
-  ];
-
-  const pointsWith = [
-    { title: "Cross-Company Pipelines", desc: "VendorFlow routes requests across corporate domains using Aicoo secure bridges." },
-    { title: "Secure Folder-Scoped Shares", desc: "Supplier AI gets read/write access to only `/Billing` folders, expiring in 7 days." },
-    { title: "Shared Cumulative Memory", desc: "Order details, carriage rates, and status logs accumulate in Aicoo folders." },
-    { title: "No Manual Forwarding", desc: "Every step is handled automatically, with credentials verified via `/init` endpoints." },
-    { title: "Full Transaction Logs", desc: "Every agent action, share request, and briefing generation is logged and inspectable." }
+  const nodes = [
+    { name: "Customer", role: "Triggers checkout", icon: ShoppingCart, color: "border-charcoal bg-charcoal text-cream" },
+    { name: "Marketplace", role: "Order Agent", icon: Store, color: "border-charcoal/10 bg-cream text-charcoal" },
+    { name: "Seller", role: "Inventory Agent", icon: Headphones, color: "border-charcoal/10 bg-cream text-charcoal" },
+    { name: "Warehouse", role: "Storage Agent", icon: Home, color: "border-charcoal/10 bg-cream text-charcoal" },
+    { name: "Courier", role: "Logistics Agent", icon: Truck, color: "border-charcoal/10 bg-cream text-charcoal" },
+    { name: "Payment", role: "Billing Agent", icon: CreditCard, color: "border-charcoal/10 bg-cream text-charcoal" },
+    { name: "Insurance", role: "Risk Underwriter", icon: Shield, color: "border-charcoal/10 bg-cream text-charcoal" }
   ];
 
   return (
-    <section id="problem-deepdive" className="py-20 bg-cream border-t border-charcoal/10 relative">
+    <section id="problem" className="py-20 bg-cream border-t border-charcoal/10 relative">
       <div className="max-w-7xl mx-auto px-6 space-y-12">
+        
         {/* Header */}
         <div className="space-y-3 max-w-xl">
           <span className="text-xs font-syne uppercase tracking-wider text-yellow-dark bg-yellow/10 px-2.5 py-0.5 rounded border border-yellow/20 inline-block font-bold">
-            S-03 / The Friction
+            S-02 / The Coordination Friction
           </span>
           <h2 className="font-syne text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-charcoal leading-none">
-            The Coordination Problem
+            One Click. Seven Independent Organizations.
           </h2>
           <p className="text-xs text-charcoal/60 leading-relaxed font-semibold">
-            Deploying disconnected AI agents creates corporate silos. Without coordination, workflows grind to a halt.
+            When a customer clicks <strong>Buy Now</strong>, behind the scenes multiple independent organizations must coordinate.
           </p>
         </div>
 
-        {/* Side by side comparison */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 border border-charcoal/10 rounded-2xl overflow-hidden shadow-sm">
-          {/* Without Coordination (Silos) */}
-          <div className="p-8 bg-cream border-r border-charcoal/15 space-y-6 flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="bg-red-500/10 p-2 rounded-lg border border-red-500/20 text-red-500">
-                  <ShieldX className="w-5 h-5" />
-                </div>
-                <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">Isolated AI Agents</h3>
-              </div>
-              <p className="text-[11px] text-charcoal/65 leading-relaxed font-semibold">
-                Siloed agents cannot coordinate across companies, resulting in disconnected customer experiences.
-              </p>
-            </div>
-
-            <div className="space-y-4 pt-6 border-t border-charcoal/10">
-              {pointsWithout.map((p, idx) => (
-                <div key={idx} className="flex gap-2.5 items-start">
-                  <X className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-xs font-extrabold text-charcoal">{p.title}</h4>
-                    <p className="text-[10px] text-charcoal/50 leading-relaxed font-medium">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Animated Connected Flow Diagram */}
+        <div className="bg-cream border border-charcoal/10 rounded-3xl p-6 md:p-8 space-y-8 shadow-sm relative overflow-hidden">
+          <div className="absolute top-4 right-4 flex items-center gap-1 text-[9px] text-red-600 bg-red-50 border border-red-200 px-2.5 py-1 rounded-full font-bold uppercase animate-pulse">
+            <Lock className="w-3 h-3" />
+            <span>Isolated Security Silos</span>
           </div>
 
-          {/* With VendorFlow */}
-          <div className="p-8 bg-charcoal text-cream space-y-6 flex flex-col justify-between grid-bg-dark border-l border-white/5">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="bg-yellow/10 p-2 rounded-lg border border-yellow/20 text-yellow animate-pulse">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <h3 className="font-syne text-xs uppercase font-extrabold text-cream">With VendorFlow</h3>
-              </div>
-              <p className="text-[11px] text-white/50 leading-relaxed font-medium">
-                Unified workflow coordinate infrastructure lets agents collaborate securely across company boundaries.
+          <div className="flex flex-col xl:flex-row items-center justify-between gap-4 py-8 relative">
+            
+            {/* SVG Connector Dotted Lines behind elements */}
+            <div className="hidden xl:block absolute left-10 right-10 top-1/2 -translate-y-1/2 h-0.5 border-t border-dashed border-charcoal/15 z-0" />
+
+            {nodes.map((node, idx) => {
+              const Icon = node.icon;
+              return (
+                <React.Fragment key={idx}>
+                  <div className={`z-10 flex flex-col items-center p-4 border rounded-2xl w-36 text-center shadow-xs transition-transform hover:-translate-y-0.5 duration-200 ${node.color}`}>
+                    <div className="p-2.5 rounded-xl bg-charcoal/5 border border-charcoal/5 mb-3">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-syne text-xs font-extrabold uppercase tracking-wide truncate max-w-full">{node.name}</h4>
+                    <p className="text-[9px] opacity-60 font-semibold mt-1">{node.role}</p>
+                  </div>
+                  {idx < nodes.length - 1 && (
+                    <div className="xl:hidden text-charcoal/30 rotate-90 my-2">
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  )}
+                </React.Fragment>
+              );
+            })}
+          </div>
+
+          {/* Simple Explanation Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-charcoal/10 text-xs font-semibold text-charcoal/70">
+            <div className="space-y-1.5">
+              <span className="text-[9px] font-syne uppercase text-charcoal/45 font-bold">The Friction</span>
+              <p className="leading-relaxed">
+                Each organization operates on completely different ERP databases, APIs, and proprietary code bases.
               </p>
             </div>
-
-            <div className="space-y-4 pt-6 border-t border-white/5">
-              {pointsWith.map((p, idx) => (
-                <div key={idx} className="flex gap-2.5 items-start">
-                  <Check className="w-4 h-4 text-yellow shrink-0 mt-0.5" />
-                  <div>
-                    <h4 className="text-xs font-extrabold text-cream">{p.title}</h4>
-                    <p className="text-[10px] text-white/50 leading-relaxed font-medium">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
+            <div className="space-y-1.5">
+              <span className="text-[9px] font-syne uppercase text-charcoal/45 font-bold">The Security Risk</span>
+              <p className="leading-relaxed">
+                None of these organizations should directly expose their customer databases or inventory lists to another company's AI.
+              </p>
+            </div>
+            <div className="space-y-1.5">
+              <span className="text-[9px] font-syne uppercase text-yellow-dark font-bold">The VendorFlow Solution</span>
+              <p className="leading-relaxed text-charcoal">
+                VendorFlow coordinates this workflow. Independent corporate AI agents safely communicate through the secure, permissioned Aicoo protocol.
+              </p>
             </div>
           </div>
         </div>
+
       </div>
     </section>
   );
