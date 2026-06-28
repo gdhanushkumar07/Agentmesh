@@ -46,17 +46,6 @@ const COORDINATION_FLOW: CoordinationStep[] = [
   { from: "marketplace", to: "buyer", label: "08 / Handshake Complete", status: "Order verified and handshaked securely" }
 ];
 
-const PIPELINE_STEPS = [
-  "Identity Verified",
-  "Policy Validated",
-  "Session Created",
-  "Inventory Reserved",
-  "Payment Approved",
-  "Insurance Generated",
-  "Courier Assigned",
-  "Handshake Completed"
-];
-
 interface Packet {
   id: number;
   fromNode: Node;
@@ -74,7 +63,6 @@ export default function HeroNetworkVisualization() {
   // Hover and Telemetry states
   const [hoveredNode, setHoveredNode] = useState<Node | null>(null);
   const [latency, setLatency] = useState(8);
-  const [reqsPerSec, setReqsPerSec] = useState(13.5);
   const [messagesRouted, setMessagesRouted] = useState(482);
   const [secureSessions, setSecureSessions] = useState(128);
 
@@ -84,8 +72,8 @@ export default function HeroNetworkVisualization() {
     const rect = containerRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    const moveX = (e.clientX - centerX) / 30;
-    const moveY = (e.clientY - centerY) / 30;
+    const moveX = (e.clientX - centerX) / 35;
+    const moveY = (e.clientY - centerY) / 35;
     setParallax({ x: moveX, y: moveY });
   };
 
@@ -96,11 +84,10 @@ export default function HeroNetworkVisualization() {
   // Telemetry fluctuation effect
   useEffect(() => {
     const timer = setInterval(() => {
-      setLatency(Math.floor(Math.random() * 6) + 6);
-      setReqsPerSec(12.4 + Math.random() * 2.1);
+      setLatency(Math.floor(Math.random() * 4) + 6);
       setMessagesRouted(prev => prev + Math.floor(Math.random() * 2) + 1);
-      setSecureSessions(prev => prev + (Math.random() > 0.85 ? 1 : 0));
-    }, 1800);
+      setSecureSessions(prev => prev + (Math.random() > 0.9 ? 1 : 0));
+    }, 2000);
     return () => clearInterval(timer);
   }, []);
 
@@ -201,8 +188,8 @@ export default function HeroNetworkVisualization() {
       {/* CSS stylesheet inline injection */}
       <style>{`
         @keyframes node-breathe {
-          0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(242, 201, 76, 0.08)); }
-          50% { transform: scale(1.02); filter: drop-shadow(0 0 12px rgba(242, 201, 76, 0.3)); }
+          0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(242, 201, 76, 0.05)); }
+          50% { transform: scale(1.02); filter: drop-shadow(0 0 10px rgba(242, 201, 76, 0.2)); }
         }
         @keyframes active-dash {
           to {
@@ -213,107 +200,99 @@ export default function HeroNetworkVisualization() {
           animation: node-breathe 4s ease-in-out infinite;
         }
         .animated-mesh-path {
-          animation: active-dash 1.2s linear infinite;
+          stroke-dasharray: 4, 4;
+          animation: active-dash 1s linear infinite;
         }
         .grid-mesh-glow {
-          background-size: 20px 20px;
+          background-size: 24px 24px;
           background-image: radial-gradient(circle, rgba(255,255,255,0.015) 1px, transparent 1px);
         }
       `}</style>
 
       {/* Browser mockup window style frame */}
       <div
-        className="w-full max-w-[760px] bg-charcoal text-cream rounded-2xl border border-white/15 shadow-2xl overflow-hidden transition-transform duration-300 ease-out flex flex-col relative"
+        className="w-full max-w-[760px] bg-[#0c0d10] text-cream rounded-2xl border border-white/10 shadow-2xl overflow-hidden transition-transform duration-300 ease-out flex flex-col relative"
         style={{
-          transform: `rotateY(${parallax.x}deg) rotateX(${-parallax.y}deg) translateY(${parallax.y * 0.4}px)`
+          transform: `rotateY(${parallax.x}deg) rotateX(${-parallax.y}deg) translateY(${parallax.y * 0.3}px)`
         }}
       >
         {/* Browser Header Bar */}
-        <div className="bg-charcoal-light px-4 py-3 border-b border-white/10 flex items-center justify-between z-20">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-            <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-            <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-            <span className="ml-2 text-[11px] font-mono text-white/45 font-medium hidden sm:inline">
-              openrelay.network/coordination-stream
+        <div className="bg-[#0e0f12] px-4 py-2.5 border-b border-white/5 flex items-center justify-between z-20">
+          <div className="flex items-center gap-1.5">
+            <div className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+            <span className="ml-2 text-[10px] font-mono text-white/30 font-medium hidden sm:inline">
+              openrelay.network/observability
             </span>
           </div>
           
-          <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[10px] font-bold text-emerald-400">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
+          <div className="flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-white/5 border border-white/10 text-[9px] font-bold text-white/60">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/80 shrink-0" />
             <span>LIVE</span>
             <span className="text-white/20">|</span>
-            <span className="text-white/70 font-semibold">AICOO Protocol Active</span>
+            <span className="font-semibold">AICOO ACTIVE</span>
             <span className="text-white/20">|</span>
-            <span className="text-yellow font-extrabold uppercase">Encrypted</span>
-            <span className="text-white/20">|</span>
-            <span className="text-white/50 font-mono">RTT: {latency}ms</span>
+            <span className="text-white/40 font-mono">RTT: {latency}ms</span>
           </div>
         </div>
 
         {/* Visualized Canvas Area */}
-        <div className="relative w-full h-[400px] sm:h-[460px] lg:h-[500px] bg-[#0b0c0e] grid-mesh-glow overflow-hidden p-4">
+        <div className="relative w-full h-[380px] sm:h-[420px] lg:h-[440px] bg-[#08090b] grid-mesh-glow overflow-hidden p-4">
           
-          {/* Radial ambient lighting effects */}
-          <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-yellow/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+          {/* Subtle soft vignette */}
+          <div className="absolute inset-0 bg-radial-gradient pointer-events-none z-10 opacity-40" />
 
-          {/* Live Protocol Pipeline Checklist */}
-          <div className="absolute top-4 left-4 z-20 p-4 bg-charcoal/90 border border-white/10 backdrop-blur-md rounded-2xl shadow-xl text-[10px] space-y-2.5 min-w-[155px]">
-            <div className="flex items-center gap-1.5 text-[8px] font-mono text-yellow font-extrabold uppercase tracking-widest border-b border-white/5 pb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-yellow animate-ping shrink-0" />
-              <span>Aicoo Pipeline</span>
+          {/* Simplified Live Protocol Pipeline Checklist */}
+          <div className="absolute top-4 left-4 z-20 p-3 bg-charcoal/90 border border-white/5 backdrop-blur-md rounded-xl shadow-lg text-[9px] space-y-1.5 w-40">
+            <div className="flex items-center gap-1.5 text-[7.5px] font-mono text-yellow font-extrabold uppercase tracking-wider border-b border-white/5 pb-1">
+              <span className="w-1 h-1 rounded-full bg-yellow animate-pulse shrink-0" />
+              <span>Pipeline</span>
             </div>
-            <div className="space-y-1.5">
-              {PIPELINE_STEPS.map((stepName, idx) => {
-                const isActive = flowIndex === idx;
-                const isCompleted = flowIndex > idx;
-                return (
-                  <div key={idx} className={`flex items-center gap-2 transition-all duration-300 ${
-                    isActive ? "text-yellow font-extrabold scale-[1.02]" : isCompleted ? "text-emerald-400" : "text-white/30"
-                  }`}>
-                    <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                      isActive ? "bg-yellow animate-pulse" : isCompleted ? "bg-emerald-400" : "bg-white/10"
-                    }`} />
-                    <span className="truncate text-[9.5px]">{stepName}</span>
-                  </div>
-                );
-              })}
+            <div className="space-y-1 font-semibold text-white/40">
+              <div className={`flex items-center gap-1.5 transition-all ${flowIndex >= 0 ? "text-emerald-400" : ""}`}>
+                <span className={`w-1 h-1 rounded-full shrink-0 ${flowIndex >= 0 ? "bg-emerald-400" : "bg-white/10"}`} />
+                <span>Identity Verified</span>
+              </div>
+              <div className={`flex items-center gap-1.5 transition-all ${flowIndex >= 1 ? "text-emerald-400" : ""}`}>
+                <span className={`w-1 h-1 rounded-full shrink-0 ${flowIndex >= 1 ? "bg-emerald-400" : "bg-white/10"}`} />
+                <span>Policy Verified</span>
+              </div>
+              <div className={`flex items-center gap-1.5 transition-all ${flowIndex >= 2 ? "text-emerald-400" : ""}`}>
+                <span className={`w-1 h-1 rounded-full shrink-0 ${flowIndex >= 2 ? "bg-emerald-400" : "bg-white/10"}`} />
+                <span>Session Created</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-yellow font-extrabold border-t border-white/5 pt-1.5 mt-1">
+                <span className="w-1 h-1 rounded-full bg-yellow animate-pulse shrink-0" />
+                <span className="truncate">{activeStep.label}</span>
+              </div>
             </div>
           </div>
 
-          {/* Live Enterprise Metrics Telemetry */}
-          <div className="absolute bottom-4 right-4 z-20 p-4 bg-charcoal/90 border border-white/10 backdrop-blur-md rounded-2xl shadow-xl text-[10px] space-y-3 min-w-[190px]">
-            <div className="flex items-center justify-between text-[8px] font-mono text-blue-400 font-extrabold uppercase tracking-widest border-b border-white/5 pb-2">
-              <span>Telemetry Monitor</span>
-              <span className="flex h-2 w-2 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
+          {/* Simplified Telemetry Monitor */}
+          <div className="absolute bottom-4 right-4 z-20 p-3 bg-charcoal/90 border border-white/5 backdrop-blur-md rounded-xl shadow-lg text-[9px] space-y-2 w-44">
+            <div className="flex items-center justify-between text-[7.5px] font-mono text-blue-400 font-extrabold uppercase tracking-wider border-b border-white/5 pb-1">
+              <span>Telemetry</span>
+              <span className="h-1 w-1 rounded-full bg-emerald-500"></span>
             </div>
             
-            <div className="grid grid-cols-2 gap-3 font-semibold text-white/70">
+            <div className="grid grid-cols-2 gap-2 font-semibold text-white/60">
               <div>
-                <div className="text-[7.5px] text-white/35 uppercase">Latency</div>
-                <div className="text-white font-mono text-[11px] mt-0.5">{latency}ms</div>
+                <div className="text-[6.5px] text-white/30 uppercase">Latency</div>
+                <div className="text-white font-mono text-[9.5px] mt-0.5">{latency}ms</div>
               </div>
               <div>
-                <div className="text-[7.5px] text-white/35 uppercase">Req / Sec</div>
-                <div className="text-white font-mono text-[11px] mt-0.5">{reqsPerSec.toFixed(1)}</div>
+                <div className="text-[6.5px] text-white/30 uppercase">Sessions</div>
+                <div className="text-white font-mono text-[9.5px] mt-0.5">{secureSessions}</div>
               </div>
               <div>
-                <div className="text-[7.5px] text-white/35 uppercase">Routed Msg</div>
-                <div className="text-white font-mono text-[11px] mt-0.5">{messagesRouted}</div>
+                <div className="text-[6.5px] text-white/30 uppercase">Routed</div>
+                <div className="text-white font-mono text-[9.5px] mt-0.5">{messagesRouted}</div>
               </div>
               <div>
-                <div className="text-[7.5px] text-white/35 uppercase">Sessions</div>
-                <div className="text-white font-mono text-[11px] mt-0.5">{secureSessions}</div>
+                <div className="text-[6.5px] text-white/30 uppercase">Security</div>
+                <div className="text-emerald-400 font-mono text-[9.5px] mt-0.5">99.8%</div>
               </div>
-            </div>
-
-            <div className="border-t border-white/5 pt-2 flex items-center justify-between text-[8.5px] text-white/40">
-              <span>Security: <span className="text-emerald-400 font-mono">99.8%</span></span>
-              <span>v1.2.4-active</span>
             </div>
           </div>
 
@@ -332,27 +311,27 @@ export default function HeroNetworkVisualization() {
 
                 return (
                   <g key={`${node.id}-${target.id}`}>
-                    {/* Base connection line */}
+                    {/* Base thin connection line */}
                     <line
                       x1={`${node.x}%`}
                       y1={`${node.y}%`}
                       x2={`${target.x}%`}
                       y2={`${target.y}%`}
-                      stroke={isActivePath ? "rgba(242, 201, 76, 0.4)" : "rgba(255, 255, 255, 0.08)"}
-                      strokeWidth={isActivePath ? "2" : "1.5"}
-                      strokeDasharray={isActivePath ? "none" : "4 4"}
+                      stroke={isActivePath ? "rgba(242, 201, 76, 0.45)" : "rgba(255, 255, 255, 0.03)"}
+                      strokeWidth={isActivePath ? "1.5" : "1"}
+                      strokeDasharray={isActivePath ? "none" : "3 3"}
                       className={isActivePath ? "animated-mesh-path" : ""}
                     />
-                    {/* Secondary glow trace */}
+                    {/* Very faint soft glow trace for active path */}
                     {isActivePath && (
                       <line
                         x1={`${node.x}%`}
                         y1={`${node.y}%`}
                         x2={`${target.x}%`}
                         y2={`${target.y}%`}
-                        stroke="rgba(242, 201, 76, 0.45)"
-                        strokeWidth="7"
-                        className="blur-xs opacity-75"
+                        stroke="rgba(242, 201, 76, 0.15)"
+                        strokeWidth="3.5"
+                        className="blur-xs"
                       />
                     )}
                   </g>
@@ -360,19 +339,14 @@ export default function HeroNetworkVisualization() {
               })
             )}
 
-            {/* Render moving packets */}
+            {/* Render moving packets (strict on connection path) */}
             {packet && (
               <g key={packet.id}>
-                {/* Linear interpolation for coordinate calculation */}
                 {(() => {
                   const x = packet.fromNode.x + (packet.toNode.x - packet.fromNode.x) * packet.progress;
                   const y = packet.fromNode.y + (packet.toNode.y - packet.fromNode.y) * packet.progress;
                   return (
-                    <>
-                      <circle cx={`${x}%`} cy={`${y}%`} r="6" fill="#f2c94c" className="animate-ping opacity-75" />
-                      <circle cx={`${x}%`} cy={`${y}%`} r="4.5" fill="#f2c94c" className="shadow-lg" />
-                      <circle cx={`${x}%`} cy={`${y}%`} r="2" fill="#0e0f12" />
-                    </>
+                    <circle cx={`${x}%`} cy={`${y}%`} r="3" fill="#f2c94c" className="shadow-md" />
                   );
                 })()}
               </g>
@@ -386,26 +360,25 @@ export default function HeroNetworkVisualization() {
             const isActive = state === "Processing" || state === "Responding";
             const isCompleted = state === "Completed";
 
-            let borderClass = "border-white/10";
+            let borderClass = "border-white/5";
             let glowShadow = "";
             let dotColor = "bg-white/10";
             let nodeOpacity = "opacity-40 scale-95";
             
             if (state === "Processing") {
-              borderClass = "border-blue-400";
-              glowShadow = "shadow-lg shadow-blue-500/10";
+              borderClass = "border-blue-400/80";
+              glowShadow = "shadow-sm shadow-blue-500/5";
               dotColor = "bg-blue-400";
-              nodeOpacity = "opacity-100 scale-105 animate-node-pulse";
+              nodeOpacity = "opacity-100 scale-100 animate-node-pulse";
             } else if (state === "Responding") {
-              borderClass = "border-yellow";
-              glowShadow = "shadow-lg shadow-yellow/10";
+              borderClass = "border-yellow/80";
+              glowShadow = "shadow-sm shadow-yellow/5";
               dotColor = "bg-yellow";
-              nodeOpacity = "opacity-100 scale-105 animate-node-pulse";
+              nodeOpacity = "opacity-100 scale-100 animate-node-pulse";
             } else if (isCompleted) {
-              borderClass = "border-emerald-500/30";
-              glowShadow = "";
+              borderClass = "border-emerald-500/25";
               dotColor = "bg-emerald-400";
-              nodeOpacity = "opacity-85 scale-100";
+              nodeOpacity = "opacity-75 scale-95";
             }
 
             return (
@@ -417,29 +390,29 @@ export default function HeroNetworkVisualization() {
                 onMouseLeave={() => setHoveredNode(null)}
               >
                 <div
-                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl bg-charcoal/95 border ${borderClass} ${glowShadow} backdrop-blur-md transition-all relative cursor-pointer`}
+                  className={`flex items-center gap-2 px-2.5 py-2 rounded-xl bg-[#0e0f12]/95 border ${borderClass} ${glowShadow} backdrop-blur-md transition-all relative cursor-pointer`}
                 >
                   {/* Status Indicator Dot */}
                   {isActive && (
-                    <span className={`absolute -top-1 -right-1 w-2.5 h-2.5 ${dotColor} border border-charcoal rounded-full animate-ping z-30`} />
+                    <span className={`absolute -top-0.5 -right-0.5 w-2 h-2 ${dotColor} border border-[#0e0f12] rounded-full animate-ping z-30`} />
                   )}
                   {(isActive || isCompleted) && (
-                    <span className={`absolute -top-1 -right-1 w-2.5 h-2.5 ${dotColor} border border-charcoal rounded-full z-30`} />
+                    <span className={`absolute -top-0.5 -right-0.5 w-2 h-2 ${dotColor} border border-[#0e0f12] rounded-full z-30`} />
                   )}
 
                   {/* Marketplace live activity ring */}
                   {node.id === "marketplace" && (
-                    <span className="absolute inset-0 rounded-xl border border-yellow/30 animate-ping opacity-25" style={{ animationDuration: '3s' }} />
+                    <span className="absolute inset-0 rounded-xl border border-yellow/20 animate-ping opacity-15" style={{ animationDuration: '3s' }} />
                   )}
 
-                  <div className={`p-1.5 rounded-lg bg-gradient-to-br ${node.color} text-white shrink-0 shadow-sm`}>
+                  <div className={`p-1.5 rounded-lg bg-gradient-to-br ${node.color} text-white shrink-0`}>
                     <Icon className="w-3.5 h-3.5" />
                   </div>
                   <div className="min-w-0 pr-1">
-                    <div className="text-[11px] font-bold text-white tracking-tight leading-none truncate">
+                    <div className="text-[10px] font-bold text-white tracking-tight leading-none truncate">
                       {node.name}
                     </div>
-                    <div className="text-[8.5px] font-medium text-white/50 leading-none mt-1 truncate">
+                    <div className="text-[8px] font-medium text-white/40 leading-none mt-1 truncate">
                       {isActive ? getActiveOperation(node.id) : node.role}
                     </div>
                   </div>
@@ -449,16 +422,16 @@ export default function HeroNetworkVisualization() {
           })}
 
           {/* Floating Data Badge */}
-          {packet && packet.progress > 0.15 && packet.progress < 0.85 && (
+          {packet && packet.progress > 0.25 && packet.progress < 0.75 && (
             <div
               style={{
                 left: `${packet.fromNode.x + (packet.toNode.x - packet.fromNode.x) * packet.progress}%`,
-                top: `${packet.fromNode.y + (packet.toNode.y - packet.fromNode.y) * packet.progress - 7}%`
+                top: `${packet.fromNode.y + (packet.toNode.y - packet.fromNode.y) * packet.progress - 6}%`
               }}
               className="absolute -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none animate-in fade-in duration-200"
             >
-              <div className="px-2.5 py-1 rounded-full bg-yellow text-charcoal font-bold text-[9px] uppercase tracking-wider shadow-lg border border-yellow-dark flex items-center gap-1.5">
-                <Lock className="w-2.5 h-2.5 text-charcoal" />
+              <div className="px-2 py-0.5 rounded-full bg-yellow text-charcoal font-bold text-[8px] uppercase tracking-wider shadow-md border border-yellow-dark flex items-center gap-1">
+                <Lock className="w-2 h-2 text-charcoal" />
                 <span>{packet.label}</span>
               </div>
             </div>
@@ -467,27 +440,27 @@ export default function HeroNetworkVisualization() {
           {/* Lightweight Floating Tooltip */}
           {hoveredNode && (
             <div 
-              className="absolute z-30 p-3 bg-charcoal/95 border border-white/10 backdrop-blur-md rounded-xl shadow-2xl text-[9.5px] space-y-1.5 text-white/80 pointer-events-none transition-all duration-200 w-48 font-semibold"
+              className="absolute z-30 p-2.5 bg-[#0e0f12]/95 border border-white/10 backdrop-blur-md rounded-lg shadow-xl text-[9px] space-y-1 text-white/70 pointer-events-none transition-all duration-200 w-44 font-semibold"
               style={{
-                left: `${hoveredNode.x > 50 ? hoveredNode.x - 22 : hoveredNode.x + 2}%`,
+                left: `${hoveredNode.x > 50 ? hoveredNode.x - 20 : hoveredNode.x + 2}%`,
                 top: `${hoveredNode.y > 50 ? hoveredNode.y - 12 : hoveredNode.y + 2}%`,
               }}
             >
               <div className="font-extrabold text-white border-b border-white/5 pb-1">
                 {hoveredNode.name}
               </div>
-              <div><span className="text-white/40">Role:</span> {hoveredNode.role}</div>
-              <div><span className="text-white/40">Current Op:</span> {getActiveOperation(hoveredNode.id)}</div>
-              <div><span className="text-white/40">Status:</span> {getNodeState(hoveredNode.id)}</div>
+              <div><span className="text-white/30">Role:</span> {hoveredNode.role}</div>
+              <div><span className="text-white/30">Op:</span> {getActiveOperation(hoveredNode.id)}</div>
+              <div><span className="text-white/30">Status:</span> {getNodeState(hoveredNode.id)}</div>
               <div>
-                <span className="text-white/40">Scope:</span>{" "}
-                <span className="text-yellow font-mono text-[9px]">
+                <span className="text-white/30">Scope:</span>{" "}
+                <span className="text-yellow font-mono text-[8px]">
                   {hoveredNode.id === "buyer" ? "Read/Write" : "Read-Scoped"}
                 </span>
               </div>
-              <div className="flex justify-between border-t border-white/5 pt-1 text-[8.5px] text-white/40">
+              <div className="flex justify-between border-t border-white/5 pt-1 text-[8px] text-white/30">
                 <span>RTT: {latency + (hoveredNode.id === "buyer" ? 0 : 2)}ms</span>
-                <span>STATUS 200 OK</span>
+                <span>200 OK</span>
               </div>
             </div>
           )}
@@ -495,31 +468,18 @@ export default function HeroNetworkVisualization() {
         </div>
 
         {/* Browser Footer Status Bar */}
-        <div className="bg-charcoal-light px-4 py-3 border-t border-white/10 flex items-center justify-between text-[11px] z-20 flex-wrap gap-2">
-          <div className="flex items-center gap-3 text-white/50 flex-wrap">
-            <span className="flex items-center gap-1 text-emerald-400 font-semibold">
+        <div className="bg-[#0e0f12] px-4 py-2.5 border-t border-white/5 flex items-center justify-center text-[9.5px] z-20">
+          <div className="flex items-center gap-3 text-white/35 flex-wrap justify-center font-medium">
+            <span className="flex items-center gap-1 text-emerald-400/80">
               <Lock className="w-3.5 h-3.5 shrink-0" />
               <span>Context Isolated</span>
             </span>
-            <span className="text-white/20">•</span>
-            <span className="flex items-center gap-1">
-              <span>✓ Identity Verified</span>
-            </span>
-            <span className="text-white/20">•</span>
-            <span className="flex items-center gap-1">
-              <span>✓ Policy Verified</span>
-            </span>
-            <span className="text-white/20">•</span>
-            <span className="flex items-center gap-1 text-yellow">
-              <span>⚡ Secure Relay Active</span>
-            </span>
-            <span className="text-white/20">•</span>
-            <span className="font-mono text-white/40">256-bit AES</span>
-            <span className="text-white/20">•</span>
-            <span className="text-white/40">8 Nodes Mesh Connected</span>
-          </div>
-          <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest">
-            Protocol v1.2
+            <span>•</span>
+            <span>✓ Policy Verified</span>
+            <span>•</span>
+            <span className="text-yellow/80">⚡ Secure Relay Active</span>
+            <span>•</span>
+            <span className="font-mono">256-bit AES</span>
           </div>
         </div>
       </div>
