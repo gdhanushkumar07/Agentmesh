@@ -45,7 +45,29 @@ export default function Navbar() {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2 select-none group">
           <div className="bg-charcoal text-yellow p-1.5 rounded-lg border border-charcoal transition-all group-hover:scale-105">
-            <Globe className="w-5 h-5 animate-spin" style={{ animationDuration: '15s' }} />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 text-yellow"
+            >
+              <circle cx="12" cy="5" r="2" fill="currentColor" />
+              <circle cx="5" cy="12" r="2" fill="currentColor" />
+              <circle cx="19" cy="12" r="2" fill="currentColor" />
+              <circle cx="12" cy="19" r="2" fill="currentColor" />
+              <circle cx="12" cy="12" r="3" fill="currentColor" className="animate-pulse" />
+              <line x1="12" y1="7" x2="12" y2="9" />
+              <line x1="12" y1="15" x2="12" y2="17" />
+              <line x1="7" y1="12" x2="9" y2="12" />
+              <line x1="15" y1="12" x2="17" y2="12" />
+              <line x1="12" y1="5" x2="5" y2="12" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+              <line x1="12" y1="5" x2="19" y2="12" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+              <line x1="5" y1="12" x2="12" y2="19" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+              <line x1="19" y1="12" x2="12" y2="19" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+            </svg>
           </div>
           <div className="flex flex-col">
             <span className="font-syne text-sm font-bold uppercase tracking-wider text-charcoal leading-none">OpenRelay</span>

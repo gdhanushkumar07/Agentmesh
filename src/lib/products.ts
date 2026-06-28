@@ -2,6 +2,7 @@
 
 export interface Product {
   id: string;
+  imageUrl: string;
   name: string;
   price: number;
   rating: number;
@@ -19,6 +20,7 @@ export interface Product {
 export const PRODUCTS: Product[] = [
   {
     id: "sony-xm6",
+    imageUrl: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60",
     name: "Sony WH-1000XM6 Wireless Noise Canceling Headphones",
     price: 399.99,
     rating: 4.9,
@@ -43,6 +45,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "macbook-pro-16",
+    imageUrl: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&auto=format&fit=crop&q=60",
     name: "MacBook Pro 16-inch M3 Max",
     price: 2499.00,
     rating: 4.8,
@@ -66,6 +69,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "odyssey-g9",
+    imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop&q=60",
     name: "Samsung Odyssey G9 49\" Curved Monitor",
     price: 1099.99,
     rating: 4.7,
@@ -89,6 +93,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "logitech-mx3",
+    imageUrl: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60",
     name: "Logitech MX Master 3S Wireless Mouse",
     price: 99.99,
     rating: 4.9,
@@ -112,6 +117,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "bose-ultra",
+    imageUrl: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&auto=format&fit=crop&q=60",
     name: "Bose QuietComfort Ultra Earbuds",
     price: 299.00,
     rating: 4.6,
@@ -135,6 +141,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "keychron-q1",
+    imageUrl: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=500&auto=format&fit=crop&q=60",
     name: "Keychron Q1 Pro Mechanical Keyboard",
     price: 199.99,
     rating: 4.8,
@@ -158,6 +165,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "philips-hue",
+    imageUrl: "https://images.unsplash.com/photo-1550985616-10810253b84d?w=500&auto=format&fit=crop&q=60",
     name: "Philips Hue Smart LED Bulb Starter Kit",
     price: 179.99,
     rating: 4.7,
@@ -181,6 +189,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "sony-a7iv",
+    imageUrl: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&auto=format&fit=crop&q=60",
     name: "Sony Alpha 7 IV Full-Frame Camera",
     price: 2498.00,
     rating: 4.8,
@@ -204,6 +213,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "ubiquiti-dream",
+    imageUrl: "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&auto=format&fit=crop&q=60",
     name: "Ubiquiti UniFi Dream Machine Pro",
     price: 379.00,
     rating: 4.9,
@@ -227,6 +237,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "wd-black-sn850x",
+    imageUrl: "https://images.unsplash.com/photo-1597872200919-a83652684955?w=500&auto=format&fit=crop&q=60",
     name: "WD_BLACK 2TB SN850X NVMe SSD",
     price: 149.99,
     rating: 4.8,
@@ -250,6 +261,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "asus-rog-phone",
+    imageUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&auto=format&fit=crop&q=60",
     name: "ASUS ROG Phone 8 Pro 5G",
     price: 1199.99,
     rating: 4.7,
@@ -273,6 +285,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "sennheiser-hd800",
+    imageUrl: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500&auto=format&fit=crop&q=60",
     name: "Sennheiser HD 800 S Reference Headphones",
     price: 1599.95,
     rating: 4.9,
@@ -296,6 +309,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "razer-blade-16",
+    imageUrl: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&auto=format&fit=crop&q=60",
     name: "Razer Blade 16 Gaming Laptop",
     price: 2999.99,
     rating: 4.6,
@@ -319,6 +333,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "steelseries-apex",
+    imageUrl: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=60",
     name: "SteelSeries Apex Pro TKL Keyboard",
     price: 189.99,
     rating: 4.7,
@@ -342,6 +357,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "dyson-light",
+    imageUrl: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=500&auto=format&fit=crop&q=60",
     name: "Dyson Solarcycle Morph Desk Light",
     price: 649.99,
     rating: 4.5,
@@ -365,6 +381,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "netgear-nighthawk",
+    imageUrl: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500&auto=format&fit=crop&q=60",
     name: "Netgear Nighthawk WiFi 7 Router",
     price: 599.99,
     rating: 4.8,
@@ -388,6 +405,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "synology-ds923",
+    imageUrl: "https://images.unsplash.com/photo-1601524909162-be87252be298?w=500&auto=format&fit=crop&q=60",
     name: "Synology DiskStation DS923+ 4-Bay NAS",
     price: 599.99,
     rating: 4.9,
@@ -411,6 +429,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "logitech-streamcam",
+    imageUrl: "https://images.unsplash.com/photo-1628126235206-5260b9ea6441?w=500&auto=format&fit=crop&q=60",
     name: "Logitech StreamCam 1080p Web Camera",
     price: 129.99,
     rating: 4.6,
@@ -434,6 +453,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "gopro-hero12",
+    imageUrl: "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&auto=format&fit=crop&q=60",
     name: "GoPro HERO12 Black Action Camera",
     price: 399.99,
     rating: 4.7,
@@ -457,6 +477,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "herman-miller-aeron",
+    imageUrl: "https://images.unsplash.com/photo-1580481072645-022f9a6dbf27?w=500&auto=format&fit=crop&q=60",
     name: "Herman Miller Aeron Chair",
     price: 1495.00,
     rating: 4.9,
@@ -480,6 +501,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "ring-doorbell",
+    imageUrl: "https://images.unsplash.com/photo-1558002038-1055907df827?w=500&auto=format&fit=crop&q=60",
     name: "Ring Video Doorbell Pro 2",
     price: 249.99,
     rating: 4.6,
@@ -503,6 +525,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "kindle-scribe",
+    imageUrl: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&auto=format&fit=crop&q=60",
     name: "Amazon Kindle Scribe 10.2\" E-Reader",
     price: 339.99,
     rating: 4.7,
@@ -526,6 +549,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "elgato-streamdeck",
+    imageUrl: "https://images.unsplash.com/photo-1598550476439-6847785fce6e?w=500&auto=format&fit=crop&q=60",
     name: "Elgato Stream Deck MK.2 Controller",
     price: 149.99,
     rating: 4.8,
@@ -549,6 +573,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "epson-ecotank",
+    imageUrl: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=500&auto=format&fit=crop&q=60",
     name: "Epson EcoTank Pro Wireless Printer",
     price: 799.99,
     rating: 4.5,
@@ -572,6 +597,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "anker-prime-bank",
+    imageUrl: "https://images.unsplash.com/photo-1609592424109-dd9892f1b17c?w=500&auto=format&fit=crop&q=60",
     name: "Anker Prime 20,000mAh Power Bank",
     price: 129.99,
     rating: 4.8,
@@ -595,6 +621,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "sony-srs-xg300",
+    imageUrl: "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&auto=format&fit=crop&q=60",
     name: "Sony SRS-XG300 Portable Speaker",
     price: 349.99,
     rating: 4.6,
@@ -618,6 +645,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "anker-hub",
+    imageUrl: "https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=500&auto=format&fit=crop&q=60",
     name: "Anker 10-in-1 USB-C Docking Station",
     price: 149.99,
     rating: 4.7,
@@ -641,6 +669,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "tado-thermostat",
+    imageUrl: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=500&auto=format&fit=crop&q=60",
     name: "tado° Smart Radiator Thermostat",
     price: 119.99,
     rating: 4.5,
@@ -664,6 +693,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "shure-sm7b",
+    imageUrl: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500&auto=format&fit=crop&q=60",
     name: "Shure SM7B Cardioid Studio Microphone",
     price: 399.00,
     rating: 4.9,
@@ -687,6 +717,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "tplink-deco",
+    imageUrl: "https://images.unsplash.com/photo-1600697395593-e9dc66797b43?w=500&auto=format&fit=crop&q=60",
     name: "TP-Link Deco XE75 Mesh WiFi 6E Kit",
     price: 299.99,
     rating: 4.7,
@@ -710,6 +741,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "sandisk-extreme",
+    imageUrl: "https://images.unsplash.com/photo-1541140111954-6e6278722241?w=500&auto=format&fit=crop&q=60",
     name: "SanDisk 2TB Extreme Portable SSD",
     price: 179.99,
     rating: 4.8,
@@ -733,6 +765,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "peak-design-backpack",
+    imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&auto=format&fit=crop&q=60",
     name: "Peak Design Everyday Backpack 20L",
     price: 279.95,
     rating: 4.9,
@@ -756,6 +789,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "belkin-stage",
+    imageUrl: "https://images.unsplash.com/photo-1622445262465-2481c4574875?w=500&auto=format&fit=crop&q=60",
     name: "Belkin 3-in-1 MagSafe Wireless Charger",
     price: 149.99,
     rating: 4.7,
@@ -779,6 +813,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "nanoleaf-lines",
+    imageUrl: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=500&auto=format&fit=crop&q=60",
     name: "Nanoleaf Lines Smart LED Bars",
     price: 199.99,
     rating: 4.6,
@@ -802,6 +837,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "logitech-g502",
+    imageUrl: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=60",
     name: "Logitech G502 X Plus Gaming Mouse",
     price: 159.99,
     rating: 4.8,

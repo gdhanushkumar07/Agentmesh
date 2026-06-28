@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "OpenRelay — AI-Powered Cross-Company Workflow Coordination",
+  title: "OpenRelay",
   description: "OpenRelay enables AI agents from different organizations to securely communicate, share context, route work, and resolve business workflows without manual coordination. Powered by AgentMesh and Aicoo.",
+  icons: {
+    icon: "/favicon.svg",
+  },
   authors: [{ name: "Aicoo Hackathon Team" }],
   openGraph: {
     title: "OpenRelay — Cross-Company Workflow Coordination",
@@ -20,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased">
       <head>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </head>
       <body className="min-h-full flex flex-col bg-cream text-charcoal font-sans">
         {children}

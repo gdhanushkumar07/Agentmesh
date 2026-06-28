@@ -85,7 +85,7 @@ export default function ArchitectureSection() {
   ];
 
   return (
-    <section id="architecture" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative">
+    <section id="technology" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         {/* Header */}
         <div className="space-y-4 max-w-xl">

@@ -1,7 +1,7 @@
 // src/app/page.tsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Globe, ArrowRight, Layout, Menu, X, ShieldCheck, Check } from "lucide-react";
 import HeroNetworkVisualization from "../components/landing/HeroNetworkVisualization";
@@ -17,23 +17,70 @@ import TechStack from "../components/landing/TechStack";
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("#");
+  const [activeSection, setActiveSection] = useState("#home");
+
+  const isManualScroll = useRef(false);
+  const manualScrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+
+      // Fallback boundaries for top and bottom of page
+      if (isManualScroll.current) return;
+      const scrollPos = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+
+      if (scrollPos < 50) {
+        setActiveSection("#home");
+      } else if (scrollPos + windowHeight >= docHeight - 50) {
+        setActiveSection("#live-demo");
+      }
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    // Scroll Spy using IntersectionObserver
+    const sectionIds = ["home", "problem", "how-it-works", "why-aicoo", "technology", "live-demo"];
+    const elements = sectionIds
+      .map(id => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-95px 0px -60% 0px", // focus on area just below header offset
+      threshold: [0, 0.1, 0.2]
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      if (isManualScroll.current) return;
+
+      const visibleEntries = entries.filter(entry => entry.isIntersecting);
+      if (visibleEntries.length > 0) {
+        // Find the active entry closest to the top of our viewport focus area
+        const activeEntry = visibleEntries.reduce((prev, curr) => {
+          return Math.abs(curr.boundingClientRect.top - 100) < Math.abs(prev.boundingClientRect.top - 100) ? curr : prev;
+        });
+        setActiveSection(`#${activeEntry.target.id}`);
+      }
+    }, observerOptions);
+
+    elements.forEach(el => observer.observe(el));
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      elements.forEach(el => observer.unobserve(el));
+      if (manualScrollTimeout.current) clearTimeout(manualScrollTimeout.current);
+    };
   }, []);
 
   const navLinks = [
-    { href: "#", label: "Home" },
+    { href: "#home", label: "Home" },
     { href: "#problem", label: "Problem" },
     { href: "#how-it-works", label: "How It Works" },
     { href: "#why-aicoo", label: "Why Aicoo" },
     { href: "#technology", label: "Technology" },
-    { href: "#demo-preview", label: "Live Demo" }
+    { href: "#live-demo", label: "Live Demo" }
   ];
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -41,7 +88,14 @@ export default function Home() {
     setMobileMenuOpen(false);
     setActiveSection(id);
     
-    if (id === "#") {
+    // Set scroll lock to prevent Scroll Spy active state flickering during smooth scroll
+    isManualScroll.current = true;
+    if (manualScrollTimeout.current) clearTimeout(manualScrollTimeout.current);
+    manualScrollTimeout.current = setTimeout(() => {
+      isManualScroll.current = false;
+    }, 850);
+
+    if (id === "#" || id === "#home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
     }
@@ -70,7 +124,29 @@ export default function Home() {
         {/* Brand */}
         <Link href="#" onClick={(e) => handleScrollTo(e, "#")} className="flex items-center gap-2.5 select-none group">
           <div className="bg-charcoal text-yellow p-2 rounded-xl border border-charcoal/20 transition-all group-hover:scale-105 group-hover:shadow-md">
-            <Globe className="w-5 h-5 animate-spin" style={{ animationDuration: '15s' }} />
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 text-yellow"
+            >
+              <circle cx="12" cy="5" r="2" fill="currentColor" />
+              <circle cx="5" cy="12" r="2" fill="currentColor" />
+              <circle cx="19" cy="12" r="2" fill="currentColor" />
+              <circle cx="12" cy="19" r="2" fill="currentColor" />
+              <circle cx="12" cy="12" r="3" fill="currentColor" className="animate-pulse" />
+              <line x1="12" y1="7" x2="12" y2="9" />
+              <line x1="12" y1="15" x2="12" y2="17" />
+              <line x1="7" y1="12" x2="9" y2="12" />
+              <line x1="15" y1="12" x2="17" y2="12" />
+              <line x1="12" y1="5" x2="5" y2="12" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+              <line x1="12" y1="5" x2="19" y2="12" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+              <line x1="5" y1="12" x2="12" y2="19" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+              <line x1="19" y1="12" x2="12" y2="19" strokeDasharray="2 2" strokeWidth="1.5" className="opacity-60" />
+            </svg>
           </div>
           <div className="flex flex-col">
             <span className="font-sans text-base font-extrabold uppercase tracking-wider text-charcoal leading-none">OpenRelay</span>
@@ -106,7 +182,7 @@ export default function Home() {
             className="btn-enterprise flex items-center gap-2 px-5 py-2.5 bg-charcoal text-cream hover:bg-charcoal/90 text-xs font-bold uppercase tracking-wider transition-all shadow-md border border-charcoal"
           >
             <Layout className="w-4 h-4 text-yellow" />
-            <span>Launch Live Demo</span>
+            <span>Launch OpenRelay</span>
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -135,7 +211,7 @@ export default function Home() {
       )}
 
       {/* HERO SECTION */}
-      <section className="relative w-full py-12 lg:py-20 px-6 lg:px-12 grid-bg radial-glow-hero min-h-[88vh] flex items-center">
+      <section id="home" className="relative w-full py-12 lg:py-20 px-6 lg:px-12 grid-bg radial-glow-hero min-h-[88vh] flex items-center">
         <div className="max-w-[1400px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-18 items-center">
           
           {/* Left Column (45%) */}
@@ -188,7 +264,7 @@ export default function Home() {
                 href="/network"
                 className="btn-enterprise flex items-center justify-center gap-2.5 px-8 py-4 bg-charcoal hover:bg-charcoal/90 text-cream font-bold uppercase text-xs tracking-wider transition-all shadow-lg group border border-charcoal"
               >
-                <span>Launch Live Demo</span>
+                <span>Launch OpenRelay</span>
                 <ArrowRight className="w-4 h-4 text-yellow transition-transform group-hover:translate-x-1" />
               </Link>
               <a
@@ -210,17 +286,24 @@ export default function Home() {
       </section>
 
       {/* STORYTELLING SECTIONS */}
-      <FutureOfWork />
+      {/* 2. PROBLEM */}
       <RealProblem />
-      <WhyAicooExists />
+      <FutureOfWork />
+
+      {/* 3. HOW IT WORKS */}
       <WhyAgentMesh />
-      <DashboardPreview />
       <AicooPowersEverything />
+      <DashboardPreview />
+
+      {/* 4. WHY AICOO */}
+      <WhyAicooExists />
+
+      {/* 5. TECHNOLOGY */}
       <ArchitectureSection />
       <TechStack />
 
       {/* FINAL MESSAGE SECTION */}
-      <section className="py-28 lg:py-36 bg-charcoal text-cream border-t border-white/10 grid-bg-dark relative overflow-hidden">
+      <section id="live-demo" className="py-28 lg:py-36 bg-charcoal text-cream border-t border-white/10 grid-bg-dark relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow/5 rounded-full blur-3xl pointer-events-none" />
         
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 text-center space-y-10 relative z-10">
@@ -237,7 +320,7 @@ export default function Home() {
               href="/network"
               className="btn-enterprise flex items-center justify-center gap-2.5 px-9 py-4.5 bg-yellow hover:bg-yellow-dark text-charcoal font-bold uppercase text-xs tracking-wider transition-all shadow-xl border border-yellow-dark"
             >
-              <span>Launch Live Demo</span>
+              <span>Launch OpenRelay</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link

@@ -9,7 +9,7 @@ export default function DashboardPreview() {
   const router = useRouter();
 
   return (
-    <section id="demo-preview" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative">
+    <section id="dashboard-preview" className="py-28 lg:py-36 bg-cream border-t border-charcoal/10 relative">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 space-y-16">
         {/* Header */}
         <div className="space-y-4 max-w-xl">
@@ -30,7 +30,7 @@ export default function DashboardPreview() {
           <div className="flex justify-between items-center px-8 py-5 bg-cream/80 border-b border-charcoal/10">
             <div className="flex items-center gap-3">
               <span className="w-3 h-3 rounded-full bg-yellow animate-pulse" />
-              <span className="text-xs font-sans uppercase font-extrabold tracking-wider text-charcoal/80">VENDORFLOW_CONTROL_BLUEPRINT</span>
+              <span className="text-xs font-sans uppercase font-extrabold tracking-wider text-charcoal/80">OPENRELAY_CONTROL_BLUEPRINT</span>
             </div>
             <div className="text-[10px] font-mono bg-charcoal/5 px-2.5 py-1 rounded-full text-charcoal/50 font-bold">v1.0-STABLE</div>
           </div>
@@ -99,7 +99,7 @@ export default function DashboardPreview() {
               onClick={() => router.push("/network")}
               className="btn-enterprise flex items-center gap-2.5 px-7 py-4 bg-charcoal hover:bg-charcoal/90 text-cream font-bold uppercase text-xs tracking-wider transition-all shadow-md shrink-0 border border-charcoal"
             >
-              <span>Launch Live Demo</span>
+              <span>Launch OpenRelay</span>
               <ArrowRight className="w-4 h-4 text-yellow" />
             </button>
           </div>

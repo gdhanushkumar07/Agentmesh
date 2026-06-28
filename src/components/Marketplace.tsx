@@ -11,9 +11,19 @@ import {
 interface MarketplaceProps {
   onBuyProduct: (product: Product, quantity: number) => void;
   onBack: () => void;
+  customerDetails?: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    deliveryCity: string;
+    customerType: string;
+    preferredPayment: string;
+    address: string;
+  };
 }
 
-export default function Marketplace({ onBuyProduct, onBack }: MarketplaceProps) {
+export default function Marketplace({ onBuyProduct, onBack, customerDetails }: MarketplaceProps) {
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -142,6 +152,40 @@ export default function Marketplace({ onBuyProduct, onBack }: MarketplaceProps) 
         </div>
       </div>
 
+      {/* Personalized Greeting Status Bar */}
+      {customerDetails && (
+        <div className="flex flex-wrap gap-4 items-center justify-between bg-white border border-charcoal/10 px-5 py-3.5 rounded-2xl shadow-sm animate-in fade-in duration-200">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-yellow/15 border border-yellow/30 text-yellow-dark flex items-center justify-center font-bold text-sm">
+              {customerDetails.firstName[0]}
+            </div>
+            <div>
+              <div className="text-xs font-bold text-charcoal">
+                Welcome, {customerDetails.firstName} {customerDetails.lastName}
+              </div>
+              <div className="text-[9px] font-semibold text-charcoal/50 uppercase tracking-wider">
+                Active Client Session
+              </div>
+            </div>
+          </div>
+          
+          <div className="flex flex-wrap gap-3 items-center text-[10px] font-semibold text-charcoal/70">
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-cream-dark/30 rounded-lg">
+              <span className="text-charcoal/45 uppercase text-[8px] font-bold">Delivery to:</span>
+              <span className="text-charcoal font-bold">{customerDetails.deliveryCity}</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-yellow/10 border border-yellow/20 rounded-lg text-yellow-dark font-bold">
+              <span className="uppercase text-[8px]">Status:</span>
+              <span>{customerDetails.customerType} Member</span>
+            </div>
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-cream-dark/30 rounded-lg">
+              <span className="text-charcoal/45 uppercase text-[8px] font-bold">Payment:</span>
+              <span className="text-charcoal font-bold">{customerDetails.preferredPayment}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Storefront Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
@@ -225,6 +269,60 @@ export default function Marketplace({ onBuyProduct, onBack }: MarketplaceProps) 
               ))}
             </select>
           </div>
+
+          {/* Aicoo Permissions Demo Widget */}
+          <hr className="border-charcoal/10" />
+          
+          <div className="space-y-3.5">
+            <div className="flex items-center gap-1.5 text-yellow-dark">
+              <ShieldCheck className="w-4.5 h-4.5 stroke-[2.5]" />
+              <span className="text-[10px] font-syne uppercase font-bold text-charcoal">Aicoo Permissions</span>
+            </div>
+            
+            <p className="text-[9.5px] text-charcoal/60 leading-relaxed font-semibold">
+              Your identity scope is securely isolated. You can only access client-facing endpoints; private supply chain databases remain locked.
+            </p>
+            
+            <div className="space-y-2.5 pt-1 text-[9px] font-semibold uppercase">
+              {/* Permitted items */}
+              <div className="space-y-1.5">
+                <span className="text-[8px] text-green-700 font-bold tracking-wider block">✓ Permitted Scope</span>
+                <div className="grid grid-cols-2 gap-1.5 text-[8px] text-charcoal/70">
+                  <div className="flex items-center justify-center bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">
+                    <span>Products</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">
+                    <span>Orders</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">
+                    <span>Delivery</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">
+                    <span>Support</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Forbidden items */}
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[8px] text-red-700 font-bold tracking-wider block">✗ Isolated Context</span>
+                <div className="grid grid-cols-2 gap-1.5 text-[8px] text-charcoal/40">
+                  <div className="flex items-center justify-center bg-red-50 text-red-700 px-1.5 py-0.5 rounded border border-red-200">
+                    <span>Supplier Stock</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-red-50 text-red-700 px-1.5 py-0.5 rounded border border-red-200">
+                    <span>Other Sellers</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-red-50 text-red-700 px-1.5 py-0.5 rounded border border-red-200">
+                    <span>Finance Logs</span>
+                  </div>
+                  <div className="flex items-center justify-center bg-red-50 text-red-700 px-1.5 py-0.5 rounded border border-red-200">
+                    <span>Insurance Data</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Products Grid Section */}
@@ -265,11 +363,20 @@ export default function Marketplace({ onBuyProduct, onBack }: MarketplaceProps) 
                   >
                     <div className="space-y-3">
                       {/* CSS-rendered placeholder image container */}
-                      <div className="aspect-square bg-cream-dark/25 border border-charcoal/5 rounded-xl flex items-center justify-center relative p-6">
-                        <span className="text-[9px] font-mono text-charcoal/45 bg-cream/70 border border-charcoal/10 px-2 py-0.5 rounded absolute top-2 left-2 font-bold uppercase">
+                      <div className="aspect-square bg-cream-dark/25 border border-charcoal/5 rounded-xl flex items-center justify-center relative overflow-hidden">
+                        <span className="text-[9px] font-mono text-charcoal/45 bg-cream/70 border border-charcoal/10 px-2 py-0.5 rounded absolute top-2 left-2 font-bold uppercase z-10">
                           {prod.brand}
                         </span>
-                        <Package className="w-12 h-12 text-charcoal/50 group-hover:scale-105 transition-transform" />
+                        {customerDetails && (prod.id === "sony-xm6" || prod.id === "macbook-pro-16") && (
+                          <span className="text-[8px] font-syne font-extrabold uppercase bg-yellow border border-yellow-dark text-charcoal px-2 py-0.5 rounded absolute top-2 right-2 z-10 animate-pulse">
+                            Ref: {customerDetails.firstName}
+                          </span>
+                        )}
+                        <img 
+                          src={prod.imageUrl} 
+                          alt={prod.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
                       </div>
 
                       {/* Title & Stats */}
@@ -324,8 +431,12 @@ export default function Marketplace({ onBuyProduct, onBack }: MarketplaceProps) 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
               
               {/* Product Preview container */}
-              <div className="md:col-span-5 flex items-center justify-center p-8 bg-cream-dark/20 border border-charcoal/5 rounded-2xl aspect-square">
-                <Package className="w-20 h-20 text-charcoal/50" />
+              <div className="md:col-span-5 flex items-center justify-center bg-cream-dark/20 border border-charcoal/5 rounded-2xl aspect-square overflow-hidden">
+                <img 
+                  src={selectedProduct.imageUrl} 
+                  alt={selectedProduct.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
 
               {/* Product Meta */}

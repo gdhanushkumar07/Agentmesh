@@ -1,9 +1,9 @@
 // src/app/network/page.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Navbar from "../../components/Navbar";
-import PortalSelection from "../../components/PortalSelection";
+import DemoIdentityOnboarding from "../../components/DemoIdentityOnboarding";
 import Marketplace from "../../components/Marketplace";
 import SellerConsole from "../../components/SellerConsole";
 import OrderSummary from "../../components/OrderSummary";
@@ -33,11 +33,54 @@ export default function NetworkPage() {
   const [isExecuting, setIsExecuting] = useState<boolean>(false);
   const [submittingStatus, setSubmittingStatus] = useState<string>("");
 
+  // Onboarding Identity states
+  const [identityType, setIdentityType] = useState<'customer' | 'partner' | null>(null);
+  const [customerDetails, setCustomerDetails] = useState<any>(null);
+  const [partnerDetails, setPartnerDetails] = useState<any>(null);
+
   // Modal & notification states
   const [showBriefingModal, setShowBriefingModal] = useState<boolean>(false);
   const [showHealthModal, setShowHealthModal] = useState<boolean>(false);
   const [heartbeatAlert, setHeartbeatAlert] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'permissions' | 'inspector'>('permissions');
+
+  // Compute a personalized scenario where default names/orgs are replaced with customized onboarding inputs
+  const personalizedScenario = useMemo(() => {
+    if (!activeScenario) return null;
+    
+    const mapText = (txt: string | undefined): any => {
+      if (!txt) return txt;
+      let t = txt;
+      if (customerDetails) {
+        const fullName = `${customerDetails.firstName} ${customerDetails.lastName}`;
+        t = t.replace(/John Smith/g, fullName)
+             .replace(/John/g, customerDetails.firstName)
+             .replace(/Smith/g, customerDetails.lastName)
+             .replace(/Hyderabad/g, customerDetails.deliveryCity);
+      }
+      if (partnerDetails) {
+        t = t.replace(/Seller Alpha \(Sound Outlet\)/g, partnerDetails.companyName)
+             .replace(/Seller Alpha/g, partnerDetails.companyName)
+             .replace(/Alpha Electronics/g, partnerDetails.companyName)
+             .replace(/Alpha/g, partnerDetails.companyName);
+      }
+      return t;
+    };
+    
+    return {
+      ...activeScenario,
+      steps: activeScenario.steps.map((step) => ({
+        ...step,
+        dialogue: mapText(step.dialogue),
+        narration: mapText(step.narration),
+        action: mapText(step.action),
+        reason: mapText(step.reason),
+        senderOrg: mapText(step.senderOrg),
+        receiverOrg: mapText(step.receiverOrg),
+        badge: mapText(step.badge)
+      }))
+    };
+  }, [activeScenario, customerDetails, partnerDetails]);
 
   const runLiveWorkflow = async (sc: Scenario, startingFrom: 'customer' | 'seller') => {
     setInitialPerspective(startingFrom);
@@ -55,8 +98,8 @@ export default function NetworkPage() {
     const transitionStatusMessages = startingFrom === 'customer' 
       ? [
           "Submitting headphones order to Marketplace Order Agent...",
-          "Querying Alpha Sound Outlet inventory levels...",
-          "Alpha reports stock deficit. Triggering Aicoo failover...",
+          `Querying ${partnerDetails?.companyName || "Alpha Sound Outlet"} inventory levels...`,
+          `${partnerDetails?.companyName || "Alpha"} reports stock deficit. Triggering Aicoo failover...`,
           "Activating Aicoo Coordination visualizer..."
         ]
       : [
@@ -104,7 +147,7 @@ export default function NetworkPage() {
 
         // Heartbeat Monitor alert during Alpha Outage check
         if (sc.id === "headphones-order-fulfillment" && idx === 3) {
-          setHeartbeatAlert("Seller Alpha timeout. Aicoo Heartbeat initiated failover routing.");
+          setHeartbeatAlert(`${partnerDetails?.companyName || "Seller Alpha"} timeout. Aicoo Heartbeat initiated failover routing.`);
         }
 
         await new Promise((resolve) => setTimeout(resolve, 2200));
@@ -146,9 +189,26 @@ export default function NetworkPage() {
     setShowBriefingModal(false);
     setShowHealthModal(false);
     setDemoState('portal');
+    setIdentityType(null);
+    setCustomerDetails(null);
+    setPartnerDetails(null);
   };
 
-  const isWorkflowComplete = activeScenario && currentStepIndex === activeScenario.steps.length - 1 && !isExecuting;
+  const handleOnboardingComplete = (type: 'customer' | 'partner', details: any) => {
+    setIdentityType(type);
+    if (type === 'customer') {
+      setCustomerDetails(details);
+      setDemoState('marketplace');
+    } else {
+      setPartnerDetails(details);
+      setDemoState('seller');
+    }
+  };
+
+  const isWorkflowComplete = personalizedScenario && currentStepIndex === (personalizedScenario.steps?.length || 0) - 1 && !isExecuting;
+
+  const isCustomer = identityType === 'customer';
+  const effectivePerspective = isCustomer ? 'customer' : viewPerspective;
 
   return (
     <div className="min-h-screen bg-cream flex flex-col relative">
@@ -157,16 +217,10 @@ export default function NetworkPage() {
 
       <main className="flex-1 p-6 max-w-7xl w-full mx-auto flex flex-col gap-6">
         
-        {/* State 1: Portal selection */}
+        {/* State 1: Portal selection / Onboarding Identity */}
         {demoState === 'portal' && (
-          <ErrorBoundary fallbackTitle="Portal Selection Error">
-            <PortalSelection onSelect={(role) => {
-              if (role === 'marketplace') {
-                setDemoState('marketplace');
-              } else {
-                setDemoState('seller');
-              }
-            }} />
+          <ErrorBoundary fallbackTitle="Demo Identity Onboarding Error">
+            <DemoIdentityOnboarding onComplete={handleOnboardingComplete} />
           </ErrorBoundary>
         )}
 
@@ -175,7 +229,12 @@ export default function NetworkPage() {
           <ErrorBoundary fallbackTitle="Marketplace Browser Error">
             <Marketplace 
               onBuyProduct={(prod, qty) => runLiveWorkflow(SCENARIOS[0], 'customer')} 
-              onBack={() => setDemoState('portal')} 
+              onBack={() => {
+                setIdentityType(null);
+                setCustomerDetails(null);
+                setDemoState('portal');
+              }}
+              customerDetails={customerDetails}
             />
           </ErrorBoundary>
         )}
@@ -185,7 +244,12 @@ export default function NetworkPage() {
           <ErrorBoundary fallbackTitle="Seller Console Error">
             <SellerConsole 
               onFulfillOrder={(prodId, qty) => runLiveWorkflow(SCENARIOS[0], 'seller')} 
-              onBack={() => setDemoState('portal')} 
+              onBack={() => {
+                setIdentityType(null);
+                setPartnerDetails(null);
+                setDemoState('portal');
+              }}
+              partnerDetails={partnerDetails}
             />
           </ErrorBoundary>
         )}
@@ -213,7 +277,7 @@ export default function NetworkPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-cream border border-charcoal/10 px-5 py-3 rounded-2xl shadow-sm">
               <div className="flex items-center gap-2.5">
                 <span className="text-[9px] font-mono bg-charcoal/5 px-2 py-0.5 rounded font-bold text-charcoal/40 uppercase">Coordination Center</span>
-                <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">{activeScenario?.name}</h3>
+                <h3 className="font-syne text-xs uppercase font-extrabold text-charcoal">{personalizedScenario?.name}</h3>
               </div>
 
               <div className="flex items-center gap-3">
@@ -227,7 +291,7 @@ export default function NetworkPage() {
                     <span className="text-[10px] font-syne font-bold text-charcoal/50 uppercase">Visual Replay:</span>
                     <button
                       onClick={() => {
-                        if (activeScenario && currentStepIndex === activeScenario.steps.length - 1) {
+                        if (personalizedScenario && currentStepIndex === (personalizedScenario.steps?.length || 0) - 1) {
                           setCurrentStepIndex(-1);
                         }
                         setIsPlaying(!isPlaying);
@@ -249,25 +313,28 @@ export default function NetworkPage() {
                 
                 {/* Role Perspective Selector Tabs */}
                 {!isWorkflowComplete && (
-                  <div className="flex bg-cream border border-charcoal/10 p-1 rounded-xl text-[9px] font-syne font-bold uppercase select-none">
+                  <div className="flex bg-cream border border-charcoal/10 p-1 rounded-xl text-[9px] font-syne font-bold uppercase select-none animate-in fade-in duration-200">
                     <button
-                      onClick={() => setViewPerspective('customer')}
+                      onClick={() => !isCustomer && setViewPerspective('customer')}
                       className={`flex-1 py-2 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-                        viewPerspective === 'customer' ? 'bg-charcoal text-cream shadow-xs' : 'text-charcoal/55 hover:bg-charcoal/5'
+                        effectivePerspective === 'customer' ? 'bg-charcoal text-cream shadow-xs' : 'text-charcoal/55 hover:bg-charcoal/5'
                       }`}
+                      disabled={isCustomer}
                     >
                       <Eye className="w-3.5 h-3.5" />
                       <span>Customer View</span>
                     </button>
-                    <button
-                      onClick={() => setViewPerspective('seller')}
-                      className={`flex-1 py-2 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
-                        viewPerspective === 'seller' ? 'bg-yellow text-charcoal shadow-xs border border-yellow-dark/20' : 'text-charcoal/55 hover:bg-charcoal/5'
-                      }`}
-                    >
-                      <UserCheck className="w-3.5 h-3.5" />
-                      <span>Seller View</span>
-                    </button>
+                    {!isCustomer && (
+                      <button
+                        onClick={() => setViewPerspective('seller')}
+                        className={`flex-1 py-2 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+                          effectivePerspective === 'seller' ? 'bg-yellow text-charcoal shadow-xs border border-yellow-dark/20' : 'text-charcoal/55 hover:bg-charcoal/5'
+                        }`}
+                      >
+                        <UserCheck className="w-3.5 h-3.5" />
+                        <span>Seller View</span>
+                      </button>
+                    )}
                   </div>
                 )}
 
@@ -276,7 +343,7 @@ export default function NetworkPage() {
                   <div className="bg-cream border border-charcoal/10 rounded-xl p-3.5 flex gap-2 text-[10px] text-charcoal/60 leading-normal font-semibold">
                     <ShieldAlert className="w-4 h-4 text-charcoal/40 shrink-0 mt-0.5" />
                     <div>
-                      {viewPerspective === 'customer' ? (
+                      {effectivePerspective === 'customer' ? (
                         <span>Showing customer-facing order updates. Sensitive B2B routing paths and negotiations remain securely isolated.</span>
                       ) : (
                         <span>Showing Seller Alpha operations console. Displays incoming requests, reserves, packing, and payment completions.</span>
@@ -294,7 +361,7 @@ export default function NetworkPage() {
                       />
                     ) : (
                       <CustomerJourney
-                        scenario={activeScenario as Scenario}
+                        scenario={personalizedScenario as Scenario}
                         currentStepIndex={currentStepIndex}
                         onStepClick={(idx) => {
                           setCurrentStepIndex(idx);
@@ -304,7 +371,7 @@ export default function NetworkPage() {
                         isPlaying={isPlaying}
                         setIsPlaying={setIsPlaying}
                         onOpenBriefing={() => setShowBriefingModal(true)}
-                        perspective={viewPerspective}
+                        perspective={effectivePerspective}
                       />
                     )}
                   </ErrorBoundary>
@@ -316,7 +383,7 @@ export default function NetworkPage() {
                 <div className="flex-1">
                   <ErrorBoundary fallbackTitle="Agent Network Topology Error">
                     <AgentNetwork
-                      activeScenario={activeScenario as Scenario}
+                      activeScenario={personalizedScenario as Scenario}
                       currentStepIndex={currentStepIndex}
                       isPlaying={isPlaying}
                       setIsPlaying={setIsPlaying}
@@ -330,7 +397,7 @@ export default function NetworkPage() {
                   <div className="min-h-[220px]">
                     <ErrorBoundary fallbackTitle="Conversation Timeline Error">
                       <CooConversationTimeline
-                        scenario={activeScenario as Scenario}
+                        scenario={personalizedScenario as Scenario}
                         currentStepIndex={currentStepIndex}
                       />
                     </ErrorBoundary>
@@ -361,14 +428,14 @@ export default function NetworkPage() {
                       {activeTab === 'permissions' ? (
                         <ErrorBoundary fallbackTitle="Permission Ledger Error">
                           <CooPermissionLedger
-                            scenario={activeScenario as Scenario}
+                            scenario={personalizedScenario as Scenario}
                             currentStepIndex={currentStepIndex}
                           />
                         </ErrorBoundary>
                       ) : (
                         <ErrorBoundary fallbackTitle="Coordination Inspector Error">
                           <CooExplorationPanel
-                            scenario={activeScenario as Scenario}
+                            scenario={personalizedScenario as Scenario}
                             currentStepIndex={currentStepIndex}
                           />
                         </ErrorBoundary>
@@ -389,7 +456,7 @@ export default function NetworkPage() {
         setShowHealthModal={setShowHealthModal}
         heartbeatAlert={heartbeatAlert}
         setHeartbeatAlert={setHeartbeatAlert}
-        activeScenario={activeScenario}
+        activeScenario={personalizedScenario}
         currentStepIndex={currentStepIndex}
         handleSignOff={handleSignOff}
       />
